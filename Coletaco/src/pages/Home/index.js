@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
-import { Text, View, Button} from 'react-native';
+import React from 'react';
+import { Text, View} from 'react-native';
 import { styles } from './styles';
 
-export default class Home extends Component {
-
-  render () {
-    return (
-      <View style={styles.container}>
-        <Text> Home </Text>
-      </View>
-    );
-  }
-
+const Home = () => {
+  return (
+    <View style={styles.container}>
+      <Text> Home </Text>
+    </View>
+  );
 }
+
+export default Home;

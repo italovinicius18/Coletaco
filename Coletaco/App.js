@@ -6,7 +6,7 @@ import Routes from './src/routes';
 
 const Stack = createStackNavigator();
 
-export default function App() {
+const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
@@ -15,3 +15,5 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+export default App;

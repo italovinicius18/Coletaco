@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Home from './pages/Home';
+import ListaColetas from './pages/ListaColetas';
 
 const Stack = createStackNavigator();
 
@@ -10,7 +10,7 @@ export default function Routes() {
     <Stack.Navigator 
       screenOptions={{headerShown:false}}
       >
-      <Stack.Screen name="Home" component={Home}/>
+      <Stack.Screen name="ListaColetas" component={ListaColetas}/>
     </Stack.Navigator>
   );
 }

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Home from './pages/Home';
+import TelaDoProduto from './pages/TelaDoProduto';
 
 const Stack = createStackNavigator();
 
@@ -10,7 +10,7 @@ export default function Routes() {
     <Stack.Navigator 
       screenOptions={{headerShown:false}}
       >
-      <Stack.Screen name="Home" component={Home}/>
+      <Stack.Screen name="TelaDoProduto" component={TelaDoProduto}/>
     </Stack.Navigator>
   );
 }

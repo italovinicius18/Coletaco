@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -10,7 +10,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
-        <Stack.Screen name="Home" component={Routes}/>
+        <Stack.Screen name="TelaDoProduto" component={Routes}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

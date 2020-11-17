@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, FlatList, TouchableOpacity, ScrollView} from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, Pressable, Image} from 'react-native';
 import { styles } from './styles';
 import { AppLoading } from "expo";
 import Svg, { Path } from 'react-native-svg';
@@ -20,35 +20,47 @@ const coletas = [
   {key: '6',nome: 'Garrafa de Vidro', categoria: 'Vidro', local: 'Meu local'},
 ];
 
+const dadosCategoria = {
+  'Metal': {cor: "#F1F312", corTexto: "#18191F", imagem: require('../../img/lata.png'), angulo: [{ rotate: "0deg" }]},
+  'Papel': {cor: "#48ACF0", corTexto: "white", imagem: require('../../img/caixa.png'), angulo: [{ rotate: "0deg" }]},
+  'Plástico': {cor: "#E53D00", corTexto: "white", imagem: require('../../img/garrafa_pet.png'), angulo: [{ rotate: "45deg" }]},
+  'Vidro': {cor: "#08C49B", corTexto: "white", imagem: require('../../img/garrafa_vidro.png'), angulo: [{ rotate: "45deg" }]}
+};
+
 const Coleta = (props) => {
-  
+  var categoria = dadosCategoria[props.categoria]
   return (
-      <View style={[styles.itemColeta, {backgroundColor: corCategoria(props.categoria)}]}>
+      <Pressable onPress={()=>{console.log(props.nome)}} style={({ pressed }) => [
+        styles.itemColeta,
+        {
+          backgroundColor: pressed
+            ? '#69D669'
+            : categoria.cor
+        }
+      ]}>
         <View style={styles.dadosColeta}>
           <View style={styles.areaTituloDadosColeta}>
-            <Text style={[styles.tituloDadosColeta, {color: corTextoCategoria(props.categoria)}]} >{props.nome}</Text>
+            <Text style={[styles.tituloDadosColeta, {color: categoria.corTexto}]} >
+              {props.nome}
+            </Text>
           </View>
-          <Text style={[styles.descricaoDadosColeta, {color: corTextoCategoria(props.categoria)}]}>{props.categoria}</Text>
-          <Text style={[styles.descricaoDadosColeta, {color: corTextoCategoria(props.categoria)}]}>{props.local}</Text>
+          <Text style={[styles.descricaoDadosColeta, {color: categoria.corTexto}]}>
+            {props.categoria}
+          </Text>
+          <Text style={[styles.descricaoDadosColeta, {color: categoria.corTexto}]}>
+            {props.local}
+            </Text>
         </View>
-        <View style={styles.imagemColeta}>
-          <Text>Imagem</Text>
+        <View style={styles.areaImagemColeta}>
+          <Image
+            style={[styles.imagemColeta, {transform: categoria.angulo}]}
+            source={categoria.imagem}
+          />
         </View>
-      </View>
+      </Pressable>
   );
 }
 
-const corCategoria = (categoria) => {
-  categorias = {"Metal": "#F1F312", "Plástico": "#E53D00", "Papel": "#48ACF0", "Vidro": "#08C49B"}
-  
-  return categorias[categoria]
-}
-
-const corTextoCategoria = (categoria) => {
-  categorias = {"Metal": "#18191F", "Plástico": "white", "Papel": "white", "Vidro": "white"}
-  
-  return categorias[categoria]
-}
 
 const SvgComponent = (props) => {
   return (
@@ -64,7 +76,7 @@ const SvgComponent = (props) => {
   );
 }
 
-const ListaColetas = () => {
+const ListaColetas = ({ navigation }) => {
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
     Montserrat_400Regular,
@@ -91,10 +103,10 @@ const ListaColetas = () => {
 
       <TouchableOpacity
           activeOpacity={0.7}
-          onPress={()=>{console.log("Maravilha")}}
+          onPress={()=>{navigation.navigate("AdicionaColetas")}}
           style={styles.botaoAdicionaColeta}>
           <SvgComponent style={styles.imagemBotaoAdicionaColeta}/>
-        </TouchableOpacity>
+      </TouchableOpacity>
     </View>
   );
 }

@@ -14,7 +14,6 @@ export const styles = StyleSheet.create({
     },
 
     botaoVoltar: {
-        transform: [{ rotate: "45deg" }],
         width: 50,
         height: 50,
         aspectRatio: 1,
@@ -43,57 +42,66 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    areaTituloCategoria: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-
-    tituloCategoria: {
-        fontFamily: "Montserrat_800ExtraBold",
-        fontSize: 17,
-        fontStyle: "normal",
-        color: "#474A57",
-    },
-
-    areaPerguntaCategoria: {
+    areaDetalheCategoria: {
         flex: 3,
         alignItems: "center",
+        paddingLeft: "8%",
     },
 
-    perguntaCategoria: {
+    detalheCategoria: {
         fontFamily: "Montserrat_800ExtraBold",
         fontSize: 34,
-        textAlign: "center",
+        textAlign: "left",
         fontStyle: "normal",
         color: "#18191F",
     },
 
-    areaOpcoesCategorias: {
-        flex: 3,
-        flexDirection: "row",
-        flexWrap: "wrap",
-        marginHorizontal: "2%",
-        marginBottom: "6%",
+    formularioColeta: {
+        flex: 5,
+        justifyContent: "space-evenly",
+        paddingHorizontal: "8%",
     },
 
-    imagemColeta: {
-        width: '50%',
-        height: '50%',
-        padding: "100%",
-    },
-
-    opcoesCategorias: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        margin: "5%",
-        paddingHorizontal: "30%",
-        paddingVertical: "10%",
+    descricaoColeta: { 
+        paddingHorizontal: '4%',
+        paddingVertical: "4%",
         borderWidth: 2,
         borderRadius: 16,
         borderColor: "#18191F",
         borderStyle: "solid",
+        fontFamily: "Montserrat_500Medium",
+        fontSize: 21,
+        fontStyle: "normal",
+        color: "#474A57",
+        
+    },
+
+    areaSelecionarMeuLocal: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+
+    areaTextoSelecionarMeuLocal: {
+        backgroundColor: "white",
+    },
+
+    textoPrincipalSelecionarMeuLocal: {
+        fontFamily: "Montserrat_800ExtraBold",
+        fontSize: 18,
+        fontStyle: "normal",
+        color: "#18191F",
+    },
+
+    textoSecundarioSelecionarMeuLocal: {
+        fontFamily: "Montserrat_500Medium",
+        fontSize: 15,
+        fontStyle: "normal",
+        color: "#474A57",
+    },
+
+    areaCheckboxSelecionarMeuLocal: {
+        flex: 2,
     },
 
 });

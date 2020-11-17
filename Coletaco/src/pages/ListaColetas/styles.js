@@ -11,7 +11,9 @@ export const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: "2%",
         paddingHorizontal: "4%",
+        paddingTop: "6%",
         justifyContent: "center",
+        backgroundColor: "white",
     },
 
     textoTitulo: {
@@ -23,6 +25,7 @@ export const styles = StyleSheet.create({
 
     areaListaColetas: {
         flex: 5,
+        backgroundColor: "white",
     },
 
     itemColeta: {
@@ -34,7 +37,6 @@ export const styles = StyleSheet.create({
         borderRadius: 16,
         borderColor: "#000",
         borderStyle: "solid",
-        backgroundColor: "white",
         paddingVertical: "3%",
         shadowColor: "#18191F",
         shadowOffset: {
@@ -66,10 +68,16 @@ export const styles = StyleSheet.create({
         fontWeight: "700",
     },
 
-    imagemColeta: {
+    areaImagemColeta: {
         flex: 1,
         justifyContent: "center",
         alignContent: "center",
+        marginRight: "5%",
+    },
+
+    imagemColeta: {
+        width: '90%',
+        height: '90%',
     },
 
     botaoAdicionaColeta: {

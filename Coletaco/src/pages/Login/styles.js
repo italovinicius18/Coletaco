@@ -12,7 +12,8 @@ export const styles = StyleSheet.create({
         height: 40
     },
     coletacoText: {
-        fontWeight: "bold"
+        fontWeight: "bold",
+        fontSize: 20
     },
     inputEmail: { 
         paddingHorizontal: '4%',
@@ -21,7 +22,7 @@ export const styles = StyleSheet.create({
         borderRadius: 16,
         borderColor: "#18191F",
         borderStyle: "solid",
-        // fontFamily: "Montserrat_500Medium",
+        fontFamily: "Montserrat_500Medium",
         fontSize: 21,
         fontStyle: "normal",
         color: "#474A57",
@@ -36,7 +37,7 @@ export const styles = StyleSheet.create({
         borderRadius: 16,
         borderColor: "#18191F",
         borderStyle: "solid",
-        // fontFamily: "Montserrat_500Medium",
+        fontFamily: "Montserrat_500Medium",
         fontSize: 21,
         fontStyle: "normal",
         color: "#474A57",

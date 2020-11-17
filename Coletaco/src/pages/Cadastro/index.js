@@ -2,12 +2,12 @@ import React from 'react';
 import { Text, View} from 'react-native';
 import { styles } from './styles';
 
-const Home = () => {
+const Cadastro = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <Text> Home </Text>
+      <Text> Cadastro </Text>
     </View>
   );
 }
 
-export default Home;
+export default Cadastro;

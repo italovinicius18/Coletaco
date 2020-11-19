@@ -11,20 +11,19 @@ import {
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
 
-//Botão "X"
-const SvgComponent = (props) => {
-  return (
-    <Svg width="100%" height="100%" viewBox="0 0 28 28" fill="none" {...props}>
-      <Path
-        d="M14 5.833v16.334M5.833 14h16.334"
-        stroke="#18191F"
-        strokeWidth={3}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </Svg>
-  );
-}
+const LogoSvgComponent = (props) => {
+	return (
+	  <Svg
+		width={48}
+		height={1}
+		viewBox="0 0 48 1"
+		xmlns="http://www.w3.org/2000/svg"
+		{...props}
+	  >
+		<Path d="M0 0h48v1H0z" fill="#063855" fillRule="evenodd" />
+	  </Svg>
+	);
+  };
 
 const Login = ({navigation}) => {
   var [email, onChangeEmail] = useState(''); //Armazena o valor do input Email
@@ -39,29 +38,43 @@ const Login = ({navigation}) => {
   } 
   else {
     return (
-      <View style={styles.container}>
-        <Text style={styles.coletacoText}>
-          COLETAÇO
-        </Text>
-  
-        <TextInput
-			style={styles.inputEmail}
-			placeholder="E-mail"
-			onChangeText={email => onChangeEmail(email)}
-			value={email}
-        />
-  
-        <TextInput
-			style={styles.inputSenha}
-			placeholder="Senha"
-			onChangeText={senha => onChangeSenha(senha)}
-			secureTextEntry={true}
-			value={senha}
-        />
-  
-        <TouchableOpacity style={styles.botao} onPress={ () => {navigation.navigate("Cadastro")}}>
-        </TouchableOpacity>
-      </View>
+	<View style={styles.container}>
+		{/* Cabeçalho da página (logo + título) */}
+		<View style={styles.viewColetacoText}>
+			<Text style={styles.coletacoText}>
+				COLETAÇO
+			</Text>
+		</View>
+
+		{/* Formulário de Login */}
+		<View style={styles.viewFormularioInfos}>
+			<TextInput
+				style={styles.inputEmail}
+				placeholder="E-mail"
+				onChangeText={email => onChangeEmail(email)}
+				value={email}
+			/>
+
+			<TextInput
+				style={styles.inputSenha}
+				placeholder="Senha"
+				onChangeText={senha => onChangeSenha(senha)}
+				secureTextEntry={true}
+				value={senha}
+			/>
+			
+			<TouchableOpacity style={styles.botaoLogin}>
+				<Text style={styles.botaoLoginText}>Login</Text>
+			</TouchableOpacity>
+		</View>
+
+		{/* Link para tela de cadastro */}
+		<View style={styles.viewCadastre}>
+			<Text style={styles.textCadastre}>
+				Você é novo aqui ? <Text style={styles.linkCadastro} onPress={ () => {navigation.navigate("Cadastro")}}>Cadastre-se</Text>
+			</Text>
+		</View>
+	</View>
     );
   }
 }

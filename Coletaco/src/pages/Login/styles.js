@@ -4,20 +4,30 @@ export const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
     },
-    botao: {
-        width: 100,
-        height: 40
+    viewColetacoText: {
+        flex: 4,
+        justifyContent: "flex-end",
     },
     coletacoText: {
-        fontWeight: "bold",
-        fontSize: 20
+        paddingTop: "5%",
+        fontFamily: "Montserrat_800ExtraBold",
+        fontStyle: "normal",
+        fontWeight: "800",
+        fontSize: 36,
+        lineHeight: 40,
+        textAlign: "center",
+        color: "#000000",
+        margin: 2
     },
-    inputEmail: { 
+    viewFormularioInfos: {
+        flex: 4,
+        paddingHorizontal: "8%",
+    },
+    inputEmail: {
+        marginVertical: "4%",
         paddingHorizontal: '4%',
-        paddingVertical: "4%",
+        paddingVertical: "3%",
         borderWidth: 2,
         borderRadius: 16,
         borderColor: "#18191F",
@@ -26,13 +36,11 @@ export const styles = StyleSheet.create({
         fontSize: 21,
         fontStyle: "normal",
         color: "#474A57",
-        marginBottom: 20,
-        width: 200
-
     },
     inputSenha: { 
+        marginVertical: "4%",
         paddingHorizontal: '4%',
-        paddingVertical: "4%",
+        paddingVertical: "3%",
         borderWidth: 2,
         borderRadius: 16,
         borderColor: "#18191F",
@@ -41,7 +49,44 @@ export const styles = StyleSheet.create({
         fontSize: 21,
         fontStyle: "normal",
         color: "#474A57",
-        width: 200
-
+    },
+    botaoLogin: {
+        marginVertical: "15%",
+        paddingHorizontal: '4%',
+        paddingVertical: "3%",
+        borderWidth: 2,
+        borderRadius: 16,
+        borderColor: "#18191F",
+        borderStyle: "solid",
+        fontFamily: "Montserrat_800ExtraBold",
+        fontWeight: "800",
+        fontSize: 21,
+        fontStyle: "normal",
+        backgroundColor: "#69D669",
+        alignItems: "center",
+    },
+    botaoLoginText: {
+        fontFamily: "Montserrat_800ExtraBold",
+        fontStyle: "normal",
+        fontWeight: "800",
+        fontSize: 21,
+        color: "white",
+    },
+    viewCadastre: {
+        flex: 2,
+    },
+    textCadastre: {
+        fontFamily: "Montserrat_500Medium",
+        fontStyle: "normal",
+        fontWeight: "500",
+        fontSize: 13,
+        textAlign: "center",
+    },
+    linkCadastro: {
+        fontFamily: "Montserrat_800ExtraBold",
+        fontStyle: "normal",
+        fontWeight: "800",
+        fontSize: 13,
+        color: "#F95A2C",
     }
 });

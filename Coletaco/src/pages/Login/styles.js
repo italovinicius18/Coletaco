@@ -9,6 +9,9 @@ export const styles = StyleSheet.create({
         flex: 4,
         justifyContent: "flex-end",
     },
+    logo: {
+        alignSelf: "center",
+    },
     coletacoText: {
         paddingTop: "5%",
         fontFamily: "Montserrat_800ExtraBold",
@@ -26,7 +29,7 @@ export const styles = StyleSheet.create({
     },
     inputEmail: {
         marginVertical: "4%",
-        paddingHorizontal: '4%',
+        paddingHorizontal: 20,
         paddingVertical: "3%",
         borderWidth: 2,
         borderRadius: 16,
@@ -39,7 +42,7 @@ export const styles = StyleSheet.create({
     },
     inputSenha: { 
         marginVertical: "4%",
-        paddingHorizontal: '4%',
+        paddingHorizontal: 20,
         paddingVertical: "3%",
         borderWidth: 2,
         borderRadius: 16,

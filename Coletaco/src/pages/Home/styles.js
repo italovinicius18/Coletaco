@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
 
@@ -7,5 +7,9 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    mapStyle: {
+        width: Dimensions.get('window').width,
+        height: '100%'
+    }
 
 });

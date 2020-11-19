@@ -1,14 +1,18 @@
-import React,{useState} from 'react';
-import { Text, View, TouchableOpacity, TextInput, Switch, Button} from 'react-native';
-import { styles } from './styles';
+import React, { useState } from "react";
+import { Text, View, TouchableOpacity, TextInput, Switch } from "react-native";
+import { styles, stylesBucaLocal } from "./styles";
+
 import { AppLoading } from "expo";
-import Svg, { Path } from 'react-native-svg';
+import Svg, { Path } from "react-native-svg";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import {
   useFonts,
   Montserrat_800ExtraBold,
   Montserrat_400Regular,
   Montserrat_500Medium,
 } from "@expo-google-fonts/montserrat";
+
+import {key} from "../../api/api";
 
 const SvgComponent = (props) => {
   return (
@@ -29,13 +33,32 @@ const SvgComponent = (props) => {
       />
     </Svg>
   );
-}
+};
+
+const GooglePlacesInput = () => {
+  return (
+    <GooglePlacesAutocomplete
+      placeholder="Local da coleta"
+      fetchDetails = {true}
+      onPress={(data, details = null) => {
+        console.log(data, details);
+      }}
+      query={{
+        key: key,
+        language: "pt-BR",
+        components: "country:br",
+      }}
+      styles={stylesBucaLocal}
+    />
+  );
+};
 
 const DetalheAdicionaColetas = ({ route, navigation }) => {
   const { categoria } = route.params;
-  const [value, onChangeText] = useState('');
+  const [valorMaterial, onChangeMaterial] = useState("");
+  const [valorLocal, onChangeLocal] = useState("");
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
@@ -46,30 +69,30 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
   if (!fontsLoaded) {
     return <AppLoading />;
   } else
-  return (
+    return (
       <View style={styles.container}>
         <View style={styles.areaBotaoVoltar}>
           <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={()=>{navigation.goBack()}}
-                style={styles.botaoVoltar}>
-                <SvgComponent style={styles.imagemBotaoVoltar}/>
+            activeOpacity={0.7}
+            onPress={() => {
+              navigation.goBack();
+            }}
+            style={styles.botaoVoltar}
+          >
+            <SvgComponent style={styles.imagemBotaoVoltar} />
           </TouchableOpacity>
         </View>
 
-        <View style={styles.cabecalhoAdicionaColeta}>
-          <View style={styles.areaDetalheCategoria}>
-            <Text style={styles.detalheCategoria}>Detalhe seu material</Text>
-          </View>
-        </View >
+        <View style={styles.areaDetalheCategoria}>
+          <Text style={styles.detalheCategoria}>Detalhe seu material</Text>
+        </View>
 
         <View style={styles.formularioColeta}>
-
           <TextInput
             style={styles.descricaoColeta}
             placeholder={"Nome do material"}
-            onChangeText={text => onChangeText(text)}
-            value={value}
+            onChangeText={(material) => onChangeMaterial(material)}
+            value={valorMaterial}
           />
 
           <View style={styles.areaSelecionarMeuLocal}>
@@ -81,6 +104,7 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
                 Eu permito compartilhar a {"\n"}minha localização atual
               </Text>
             </View>
+
             <View style={styles.areaCheckboxSelecionarMeuLocal}>
               <Switch
                 trackColor={{ false: "#767577", true: "#69D669" }}
@@ -92,16 +116,19 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
             </View>
           </View>
 
-          <View>
-            <Button
-              title="Press me"
-              onPress={() => Alert.alert('Simple Button pressed')}
-            />
-          </View>
+          {isEnabled ? null : <GooglePlacesInput />}
 
+          <TouchableOpacity
+            style={styles.botaoConfirmar}
+            onPress={() => {
+              console.log("Botão");
+            }}
+          >
+            <Text style={styles.textoBotaoConfirmar}>Cadastrar material</Text>
+          </TouchableOpacity>
         </View>
-    </View>
-  );
-}
+      </View>
+    );
+};
 
 export default DetalheAdicionaColetas;

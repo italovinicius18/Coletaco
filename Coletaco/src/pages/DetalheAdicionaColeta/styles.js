@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
         paddingTop: "8%",
         paddingLeft: "8%",
         paddingBottom: 0,
+        flexDirection: 'row',
     },
 
     botaoVoltar: {
@@ -24,7 +25,7 @@ export const styles = StyleSheet.create({
         borderRadius: 30,
         borderColor: "#000",
         borderStyle: "solid",
-        paddingVertical: "3%",
+        paddingVertical: "2%",
         shadowColor: "#18191F",
         shadowOffset: {
             width: 0,
@@ -34,37 +35,30 @@ export const styles = StyleSheet.create({
         shadowRadius: 6.68,
         elevation: 11,
     },
-    
-    cabecalhoAdicionaColeta: {
-        flex: 1,
-        marginHorizontal: "1%",
-        justifyContent: "center",
-        alignItems: 'center',
-    },
 
     areaDetalheCategoria: {
-        flex: 3,
+        flex: 1,
         alignItems: "center",
-        paddingLeft: "8%",
+        justifyContent: "center",
     },
 
     detalheCategoria: {
         fontFamily: "Montserrat_800ExtraBold",
-        fontSize: 34,
+        fontSize: 28,
         textAlign: "left",
         fontStyle: "normal",
         color: "#18191F",
     },
 
     formularioColeta: {
-        flex: 5,
-        justifyContent: "space-evenly",
+        flex: 10,
+        justifyContent: "space-around",
         paddingHorizontal: "8%",
     },
 
     descricaoColeta: { 
         paddingHorizontal: '4%',
-        paddingVertical: "4%",
+        paddingVertical: "3%",
         borderWidth: 2,
         borderRadius: 16,
         borderColor: "#18191F",
@@ -76,14 +70,13 @@ export const styles = StyleSheet.create({
         
     },
 
-    areaSelecionarMeuLocal: {
+    areaSelecionarMeuLocal: {   
         flexDirection: "row",
-        justifyContent: "space-between",
         alignItems: "center",
     },
 
     areaTextoSelecionarMeuLocal: {
-        backgroundColor: "white",
+        paddingVertical: '5%',
     },
 
     textoPrincipalSelecionarMeuLocal: {
@@ -104,4 +97,69 @@ export const styles = StyleSheet.create({
         flex: 2,
     },
 
+    botaoConfirmar: {
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#69D669",
+        paddingHorizontal: '4%',
+        marginVertical: '10%',
+        paddingVertical: "4%",
+        marginVertical: '6%',
+        borderWidth: 2,
+        borderRadius: 16,
+        borderColor: "#18191F",
+        borderStyle: "solid",
+    },
+
+    textoBotaoConfirmar: {
+        fontFamily: "Montserrat_800ExtraBold",
+        fontSize: 18,
+        fontStyle: "normal",
+        color: "white",
+    },
+
 });
+
+export const stylesBucaLocal = {
+    container: {
+            flex: 1,
+    },
+
+    textInputContainer: {
+        flexDirection: 'row',
+        paddingTop: '5%',
+    },
+    textInput: {
+        paddingHorizontal: '4%',
+        borderWidth: 2,
+        borderRadius: 16,
+        borderColor: "#18191F",
+        borderStyle: "solid",
+        fontFamily: "Montserrat_500Medium",
+        fontSize: 21,
+        fontStyle: "normal",
+        color: "#474A57",
+    },
+    poweredContainer: {
+        alignItems: 'center',
+        borderBottomRightRadius: 5,
+        borderBottomLeftRadius: 5,
+        borderColor: '#c8c7cc',
+        borderTopWidth: 0.5,
+    },
+    powered: {},
+    listView: {},
+    row: {
+        backgroundColor: '#FFFFFF',
+        flexDirection: 'row',
+    },
+    separator: {
+        backgroundColor: '#c8c7cc',
+    },
+    description: {},
+    loader: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        height: 20,
+    },
+  };

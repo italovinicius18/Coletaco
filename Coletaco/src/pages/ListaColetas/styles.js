@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
 
     container: {
         flex: 1,
+        backgroundColor: 'white',
     },
 
     areaTitulo: {
@@ -13,7 +14,6 @@ export const styles = StyleSheet.create({
         paddingHorizontal: "4%",
         paddingTop: "6%",
         justifyContent: "center",
-        backgroundColor: "white",
     },
 
     textoTitulo: {
@@ -24,8 +24,7 @@ export const styles = StyleSheet.create({
     },
 
     areaListaColetas: {
-        flex: 5,
-        backgroundColor: "white",
+        flex: 6,
     },
 
     itemColeta: {

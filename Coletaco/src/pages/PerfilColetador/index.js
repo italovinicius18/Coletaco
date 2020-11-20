@@ -33,22 +33,22 @@ const SvgComponent = (props) => {
 
 // Criação das variáveis que representam as entregas pendentes e finalizadas (coletadas)
 const pendentes = [
-  { key: '0', produto: 'Latinha', nome: 'Thorin', imagem: require('./img/Catador.png'), backgroundColor: '#00C6AE' },
-  { key: '1', produto: 'Papelão', nome: 'Balin', imagem: require('./img/Catador.png'), backgroundColor: '#00C6AE' },
-  { key: '2', produto: 'Papelão', nome: 'Dwalin', imagem: require('./img/Catador.png'), backgroundColor: '#00C6AE' },
-  { key: '3', produto: 'Papelão', nome: 'Fili', imagem: require('./img/Catador.png'), backgroundColor: '#00C6AE' },
-  { key: '4', produto: 'Papelão', nome: 'kili', imagem: require('./img/Catador.png'), backgroundColor: '#00C6AE' },
-  { key: '5', produto: 'Papelão', nome: 'Bombur', imagem: require('./img/Catador.png'), backgroundColor: '#00C6AE' },
-  { key: '6', produto: 'Papelão', nome: 'Bofur', imagem: require('./img/Catador.png'), backgroundColor: '#00C6AE' },
+  { key: '0', produto: 'Latinha', nome: 'Thorin', imagem: require('../img/Colaborador.png'), backgroundColor: '#00C6AE' },
+  { key: '1', produto: 'Papelão', nome: 'Balin', imagem: require('../img/Colaborador.png'), backgroundColor: '#00C6AE' },
+  { key: '2', produto: 'Papelão', nome: 'Dwalin', imagem: require('../img/Colaborador.png'), backgroundColor: '#00C6AE' },
+  { key: '3', produto: 'Papelão', nome: 'Fili', imagem: require('../img/Colaborador.png'), backgroundColor: '#00C6AE' },
+  { key: '4', produto: 'Papelão', nome: 'kili', imagem: require('../img/Colaborador.png'), backgroundColor: '#00C6AE' },
+  { key: '5', produto: 'Papelão', nome: 'Bombur', imagem: require('../img/Colaborador.png'), backgroundColor: '#00C6AE' },
+  { key: '6', produto: 'Papelão', nome: 'Bofur', imagem: require('../img/Colaborador.png'), backgroundColor: '#00C6AE' },
 ];
 
 const coletados = [
-  { key: '0', produto: 'Latinha', nome: 'Dori', imagem: require('./img/Catador.png'), backgroundColor: '#F95A2C' },
-  { key: '1', produto: 'Papelão', nome: 'Nori', imagem: require('./img/Catador.png'), backgroundColor: '#F95A2C' },
-  { key: '2', produto: 'Papelão', nome: 'Ori', imagem: require('./img/Catador.png'), backgroundColor: '#F95A2C' },
-  { key: '3', produto: 'Papelão', nome: 'Oin', imagem: require('./img/Catador.png'), backgroundColor: '#F95A2C' },
-  { key: '4', produto: 'Papelão', nome: 'Gloin', imagem: require('./img/Catador.png'), backgroundColor: '#F95A2C' },
-  { key: '5', produto: 'Papelão', nome: 'Bifur', imagem: require('./img/Catador.png'), backgroundColor: '#F95A2C' },
+  { key: '0', produto: 'Latinha', nome: 'Dori', imagem: require('../img/Colaborador.png'), backgroundColor: '#F95A2C' },
+  { key: '1', produto: 'Papelão', nome: 'Nori', imagem: require('../img/Colaborador.png'), backgroundColor: '#F95A2C' },
+  { key: '2', produto: 'Papelão', nome: 'Ori', imagem: require('../img/Colaborador.png'), backgroundColor: '#F95A2C' },
+  { key: '3', produto: 'Papelão', nome: 'Oin', imagem: require('../img/Colaborador.png'), backgroundColor: '#F95A2C' },
+  { key: '4', produto: 'Papelão', nome: 'Gloin', imagem: require('../img/Colaborador.png'), backgroundColor: '#F95A2C' },
+  { key: '5', produto: 'Papelão', nome: 'Bifur', imagem: require('../img/Colaborador.png'), backgroundColor: '#F95A2C' },
 ];
 
 
@@ -84,7 +84,7 @@ const Coleta = (props) => {
   );
 }
 
-const PerfilColetador = (navigation) => {
+const PerfilColetador = ({ navigation }) => {
 
   // Definição das fontes
   let [fontsLoaded] = useFonts({
@@ -113,7 +113,7 @@ const PerfilColetador = (navigation) => {
 
         {/* Definição da imagem do perfil do catador */}
         <View style={styles.imagemPerfil}>
-          <Image source={require('./img/Catador.png')}
+          <Image source={require('../img/Catador.png')}
           />
         </View>
 

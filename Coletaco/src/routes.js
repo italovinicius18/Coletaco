@@ -11,6 +11,7 @@ export default function Routes() {
       screenOptions={{headerShown:false}}
       >
       <Stack.Screen name="Home" component={Home}/>
+      <Stack.Screen name="Coletas" component={Coletas}/>
     </Stack.Navigator>
   );
 }

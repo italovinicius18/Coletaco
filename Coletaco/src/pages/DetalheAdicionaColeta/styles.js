@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     },
 
     areaDetalheCategoria: {
-        flex: 1,
+        flex: 1.5,
         alignItems: "center",
         justifyContent: "center",
     },
@@ -56,9 +56,9 @@ export const styles = StyleSheet.create({
         paddingHorizontal: "8%",
     },
 
-    descricaoColeta: { 
+    descricaoColeta: {
         paddingHorizontal: '4%',
-        paddingVertical: "3%",
+        paddingVertical: "2%",
         borderWidth: 2,
         borderRadius: 16,
         borderColor: "#18191F",
@@ -70,7 +70,8 @@ export const styles = StyleSheet.create({
         
     },
 
-    areaSelecionarMeuLocal: {   
+    areaSelecionarMeuLocal: {
+        flex: 1,   
         flexDirection: "row",
         alignItems: "center",
     },
@@ -127,7 +128,6 @@ export const stylesBucaLocal = {
 
     textInputContainer: {
         flexDirection: 'row',
-        paddingTop: '5%',
     },
     textInput: {
         paddingHorizontal: '4%',
@@ -147,8 +147,11 @@ export const stylesBucaLocal = {
         borderColor: '#c8c7cc',
         borderTopWidth: 0.5,
     },
-    powered: {},
-    listView: {},
+    powered: {
+        
+    },
+    listView: {
+    },
     row: {
         backgroundColor: '#FFFFFF',
         flexDirection: 'row',
@@ -156,9 +159,13 @@ export const stylesBucaLocal = {
     separator: {
         backgroundColor: '#c8c7cc',
     },
-    description: {},
+    description: {
+        fontSize: 18,
+        color: "#474A57",
+    },
     loader: {
         flexDirection: 'row',
+        backgroundColor: 'blue',
         justifyContent: 'flex-end',
         height: 20,
     },

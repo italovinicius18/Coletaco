@@ -1,9 +1,17 @@
-import React, { useState } from "react";
-import { Text, View, TouchableOpacity, TextInput, Switch } from "react-native";
+import React, { useState,useEffect } from "react";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+  Switch,
+  Alert,
+} from "react-native";
 import { styles, stylesBucaLocal } from "./styles";
 
 import { AppLoading } from "expo";
 import Svg, { Path } from "react-native-svg";
+import * as Location from 'expo-location';
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import {
   useFonts,
@@ -12,7 +20,7 @@ import {
   Montserrat_500Medium,
 } from "@expo-google-fonts/montserrat";
 
-import {key} from "../../api/api";
+import { key } from "../../api/api";
 
 const SvgComponent = (props) => {
   return (
@@ -35,36 +43,62 @@ const SvgComponent = (props) => {
   );
 };
 
-const GooglePlacesInput = () => {
-  return (
-    <GooglePlacesAutocomplete
-      placeholder="Local da coleta"
-      fetchDetails = {true}
-      onPress={(data, details = null) => {
-        console.log(data, details);
-      }}
-      query={{
-        key: key,
-        language: "pt-BR",
-        components: "country:br",
-      }}
-      styles={stylesBucaLocal}
-    />
-  );
-};
-
 const DetalheAdicionaColetas = ({ route, navigation }) => {
   const { categoria } = route.params;
-  const [valorMaterial, onChangeMaterial] = useState("");
-  const [valorLocal, onChangeLocal] = useState("");
+  const [nomeMaterial, setNomeMaterial] = useState("");
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
+  
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
     Montserrat_500Medium,
     Montserrat_400Regular,
   });
+  
+  useEffect(
+    
+    accessCurrentLocation = () => {
+      (async  () => {
+        let { status } = await Location.requestPermissionsAsync();
+        if (status !== 'granted') {
+          Alert.alert('Houve erro para acessar sua localização, por favor tente novamente')
+        }
+        
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location);
+      })();
+    },
+
+    
+  []);
+
+  const returnLatLong = (data) => {
+    var coords;
+    if (data['details']){
+      let dataCoords = data['details']['geometry']['location']
+      coords = {
+        latitude: dataCoords['lat'],
+        longitude: dataCoords['lng'],
+      }
+    }
+    else {
+      let dataCoords = data['coords']
+      coords = {
+        latitude: dataCoords['latitude'],
+        longitude: dataCoords['longitude'],
+      }
+    }
+    return coords
+  }
+
+  let text = 'Waiting..';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -91,8 +125,9 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
           <TextInput
             style={styles.descricaoColeta}
             placeholder={"Nome do material"}
-            onChangeText={(material) => onChangeMaterial(material)}
-            value={valorMaterial}
+            onChangeText={(material) => setNomeMaterial(material)}
+            maxLength={25}
+            value={nomeMaterial}
           />
 
           <View style={styles.areaSelecionarMeuLocal}>
@@ -108,20 +143,47 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
             <View style={styles.areaCheckboxSelecionarMeuLocal}>
               <Switch
                 trackColor={{ false: "#767577", true: "#69D669" }}
-                thumbColor={isEnabled ? "#f5dd4b" : "#69D669"}
+                thumbColor={isEnabled ? "#fff" : "#69D669"}
                 ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitch}
+                onValueChange={() => {
+                  setIsEnabled(!isEnabled)
+                  accessCurrentLocation()
+                }}
                 value={isEnabled}
               />
             </View>
           </View>
 
-          {isEnabled ? null : <GooglePlacesInput />}
+          {isEnabled ? null : 
+            <GooglePlacesAutocomplete
+              placeholder="Local da coleta"
+              fetchDetails={true}
+              onPress={(data, details = null) => {
+                setLocation({data: data,details: details});
+              }}
+              query={{
+                key: key,
+                language: "pt-BR",
+                components: "country:br",
+              }}
+              styles={stylesBucaLocal}
+            />
+          }
 
           <TouchableOpacity
             style={styles.botaoConfirmar}
             onPress={() => {
-              console.log("Botão");
+              var dados = {
+                categoria: categoria,
+                coletaNome: nomeMaterial,
+                local: returnLatLong(location),
+              }
+              if (!(dados['coletaNome'] || dados['local'])){
+                console.log(dados)
+              }
+              else{
+                Alert.alert('Por favor, revise os dados')
+              }
             }}
           >
             <Text style={styles.textoBotaoConfirmar}>Cadastrar material</Text>
@@ -129,6 +191,7 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
         </View>
       </View>
     );
+
 };
 
 export default DetalheAdicionaColetas;

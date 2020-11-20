@@ -35,7 +35,7 @@ const SvgComponent = (props) => {
   );
 }
 
-
+// Criação da variável que representa as colaborações que a pessoal vez
 const dadosColaboracao = [
   {
     name: 'Plástico',
@@ -68,6 +68,7 @@ const dadosColaboracao = [
 ];
 
 
+// Configuração do PieChart
 const chartConfig = {
   backgroundGradientFrom: "#1E2923",
   backgroundGradientFromOpacity: 0,
@@ -82,17 +83,20 @@ const chartConfig = {
 
 const PerfilColaborador = ({ navigation }) => {
 
+  // Definição das fontes
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
     Montserrat_500Medium,
     Montserrat_400Regular,
   });
+  // Condição que verifica se as fontes estão sendo carregadas
   if (!fontsLoaded) {
     return <AppLoading />;
   } else
     return (
       <View style={styles.container}>
 
+        {/* Criação do botão voltar */}
         <View style={styles.areaBotaoVoltar}>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -103,11 +107,13 @@ const PerfilColaborador = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
+        {/* Definição da imagem do perfil do Colaborador */}
         <View style={styles.imagemPerfil}>
           <Image source={require('../img/Colaborador.png')}
           />
         </View>
 
+        {/* Gerando o nome e o gráfico das colaborções que a pessoa vez */}
         <View style={styles.fundo}>
           <View style={styles.linha}>
           </View>

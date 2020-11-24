@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
         paddingLeft: "5%",
     },
     viewFormulario: {
-        flex: 5,
+        flex: 6,
         paddingHorizontal: "8%",
     },
     inputNomeCompleto: {
@@ -79,9 +79,6 @@ export const styles = StyleSheet.create({
         lineHeight: 24,
         color: "#474A57",
     },
-    radioPerfil: {
-        flexDirection: "row",
-    },
     botaoCadastro: {
         marginVertical: "15%",
         paddingHorizontal: '4%',
@@ -101,7 +98,7 @@ export const styles = StyleSheet.create({
         color: "white",
     },
     viewLogin: {
-        flex: 2,
+        flex: 1,
     },
     textLogin: {
         fontFamily: "Montserrat_500Medium",

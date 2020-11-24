@@ -77,14 +77,16 @@ const Cadastro = ({ navigation }) => {
 
 					<Text style={styles.textoEscolhaPerfil}>Escolha o seu perfil de usuário</Text>
 
-					<RadioButton.Group onValueChange={newValue => setValue(newValue)} value={tipoPerfil} style={styles.radioPerfil}>
-						<View>
-							<Text>Catador</Text>
-							<RadioButton value="catador" />
-						</View>
-						<View>
-							<Text>Colaborador</Text>
-							<RadioButton value="colaborador" />
+					<RadioButton.Group onValueChange={newValue => setValue(newValue)} value={tipoPerfil}>
+						<View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+							<View style={{flexDirection: 'row', alignItems: 'center'}}>
+								<RadioButton value="catador" />
+								<Text>Catador</Text>
+							</View>
+							<View style={{flexDirection: 'row', alignItems: 'center'}}>
+								<RadioButton value="colaborador" />
+								<Text>Colaborador</Text>
+							</View>
 						</View>
 					</RadioButton.Group>
 					

@@ -106,7 +106,7 @@ const Login = ({ navigation }) => {
 					/>
 
 					{/* Botão de Login */}
-					<TouchableOpacity style={styles.botaoLogin}>
+					<TouchableOpacity style={styles.botaoLogin} onPress={() => {console.log(email + "; " + senha)}}>
 						<Text style={styles.botaoLoginText}>Login</Text>
 					</TouchableOpacity>
 				</View>

@@ -10,6 +10,7 @@ import {
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
 
+//Componente de imagem da logo
 const LogoSvgComponent = (props) => {
 	return (
 		<Svg
@@ -50,20 +51,23 @@ const LogoSvgComponent = (props) => {
 };
 
 const Login = ({ navigation }) => {
+	//EventListener do teclado
 	useEffect(() => {
 		Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
 		Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
 	}, []);
+	//Evento disparado quando o teclado aparece na tela
 	const _keyboardDidShow = () => {
 		onChangeKeyboard(true);
 	};
-	
+	//Evento disparado quando o teclado some da tela
 	const _keyboardDidHide = () => {
 		onChangeKeyboard(false);
 	};
 	var [email, onChangeEmail] = useState(''); //Armazena o valor do input Email
 	var [senha, onChangeSenha] = useState(''); //Armazena o valor do input Senha
-	let [tecladoAtivo, onChangeKeyboard] = useState(false);
+	let [tecladoAtivo, onChangeKeyboard] = useState(false); //Armazena o valor da variável tecladoAtivo
+	//Fontes
 	let [fontsLoaded] = useFonts({
 		Montserrat_800ExtraBold,
 		Montserrat_500Medium,
@@ -85,13 +89,14 @@ const Login = ({ navigation }) => {
 
 				{/* Formulário de Login */}
 				<View style={styles.viewFormularioInfos}>
+					{/* Input Email */}
 					<TextInput
 						style={styles.inputEmail}
 						placeholder="E-mail"
 						onChangeText={email => onChangeEmail(email)}
 						value={email}
 					/>
-
+					{/* Input Senha */}
 					<TextInput
 						style={styles.inputSenha}
 						placeholder="Senha"
@@ -100,6 +105,7 @@ const Login = ({ navigation }) => {
 						value={senha}
 					/>
 
+					{/* Botão de Login */}
 					<TouchableOpacity style={styles.botaoLogin}>
 						<Text style={styles.botaoLoginText}>Login</Text>
 					</TouchableOpacity>
@@ -110,7 +116,7 @@ const Login = ({ navigation }) => {
 					tecladoAtivo ? null : 
 					<View style={styles.viewCadastre} >
 						<Text style={styles.textCadastre}>
-							Você é novo aqui ? <Text style={styles.linkCadastro} onPress={() => { navigation.navigate("Cadastro") }}>Cadastre-se</Text>
+							Você é novo aqui? <Text style={styles.linkCadastro} onPress={() => { navigation.navigate("Cadastro") }}>Cadastre-se</Text>
 						</Text>
 					</View>
 				}

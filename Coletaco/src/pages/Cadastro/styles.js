@@ -72,6 +72,16 @@ export const styles = StyleSheet.create({
         fontStyle: "normal",
         color: "#474A57",
     },
+    textoEscolhaPerfil: {
+        fontFamily: "Montserrat_500Medium",
+        fontStyle: "normal",
+        fontSize: 17,
+        lineHeight: 24,
+        color: "#474A57",
+    },
+    radioPerfil: {
+        flexDirection: "row",
+    },
     botaoCadastro: {
         marginVertical: "15%",
         paddingHorizontal: '4%',

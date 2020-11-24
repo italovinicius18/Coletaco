@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, TouchableOpacity, View, Keyboard, TextInput } from 'react-native';
+import { RadioButton } from 'react-native-paper';
 import { styles } from './styles';
 import {
 	useFonts,
@@ -9,6 +10,9 @@ import {
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
 
+const printInfo = () => {
+	console.log()
+};
 const Cadastro = ({ navigation }) => {
 	//EventListener do teclado
 	useEffect(() => {
@@ -26,7 +30,8 @@ const Cadastro = ({ navigation }) => {
 	var [nomeCompleto, onChangeNomeCompleto] = useState(''); //Armazena o valor do input Nome Completo
 	var [email, onChangeEmail] = useState(''); //Armazena o valor do input Email
 	var [senha, onChangeSenha] = useState(''); //Armazena o valor do input Senha
-	let [tecladoAtivo, onChangeKeyboard] = useState(false); //Armazena o valor da variável tecladoAtivo
+	var [tecladoAtivo, onChangeKeyboard] = useState(false); //Armazena o valor da variável tecladoAtivo
+	var [tipoPerfil, setValue] = useState('catador');
 	//Fontes
 	let [fontsLoaded] = useFonts({
 		Montserrat_800ExtraBold,
@@ -69,9 +74,22 @@ const Cadastro = ({ navigation }) => {
 						secureTextEntry={true}
 						value={senha}
 					/>
+
+					<Text style={styles.textoEscolhaPerfil}>Escolha o seu perfil de usuário</Text>
+
+					<RadioButton.Group onValueChange={newValue => setValue(newValue)} value={tipoPerfil} style={styles.radioPerfil}>
+						<View>
+							<Text>Catador</Text>
+							<RadioButton value="catador" />
+						</View>
+						<View>
+							<Text>Colaborador</Text>
+							<RadioButton value="colaborador" />
+						</View>
+					</RadioButton.Group>
 					
 					{/* Botão de Cadastro */}
-					<TouchableOpacity style={styles.botaoCadastro}>
+					<TouchableOpacity style={styles.botaoCadastro} onPress={() => {console.log(nomeCompleto + "; " + email + "; " + senha + "; " + tipoPerfil)}}>
 						<Text style={styles.botaoCadastroText}>Cadastre-se</Text>
 					</TouchableOpacity>
 				</View>

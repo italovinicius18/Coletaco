@@ -5,6 +5,35 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+
+    areaBotaoVoltar: {
+        paddingTop: "8%",
+        paddingLeft: "8%",
+        paddingBottom: 0,
+    },
+
+    botaoVoltar: {
+        width: 50,
+        height: 50,
+        aspectRatio: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        borderWidth: 2,
+        borderRadius: 30,
+        borderColor: "#000",
+        borderStyle: "solid",
+        paddingVertical: "3%",
+        shadowColor: "#18191F",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.36,
+        shadowRadius: 6.68,
+        elevation: 11,
+    },
+
     
     areaImagem: {
         flex: 1,
@@ -22,15 +51,18 @@ export const styles = StyleSheet.create({
     },
     areaDescricao: {
         flex: 1,
-        marginVertical : '1%',
+        marginVertical : '5%',
         marginHorizontal: '10%',
     },
     descricaoColeta: {
-        flex: 1,
+        color: '#FFFFFF',
+        fontFamily: "Montserrat_800ExtraBold",
+        fontSize: 33,
+        color: '#000000',
     },
 
     areaBotao: {
-        flex: 1,
+        flex: 1.5,
         marginVertical : '1%',
         marginHorizontal: '25%',
     },
@@ -44,17 +76,17 @@ export const styles = StyleSheet.create({
         overlayColor: "white",
         borderRadius: 20,
     },
-    setColorWhite : {
+    setCorBranca: {
         color: '#FFFFFF',
         fontFamily: "Montserrat_800ExtraBold",
         fontSize: 17,
         fontStyle: "normal",
     },
-    setColorBlack : {
+    setCorPreta: {
         color: '#FFFFFF',
         fontFamily: "Montserrat_800ExtraBold",
         fontSize: 17,
         color: '#000000'
-    }
+    },
 
 });

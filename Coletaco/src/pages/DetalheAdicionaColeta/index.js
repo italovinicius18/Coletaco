@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState} from "react";
 import {
   Text,
   View,
@@ -11,8 +11,8 @@ import { styles, stylesBucaLocal } from "./styles";
 
 import { AppLoading } from "expo";
 import Svg, { Path } from "react-native-svg";
-import * as Location from 'expo-location';
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import * as Location from "expo-location"; // Pacote utilizado para acessar alocalização atual do usuário
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"; // Pacote utilizado pra facilitar a busca de localizações 
 import {
   useFonts,
   Montserrat_800ExtraBold,
@@ -22,7 +22,9 @@ import {
 
 import { key } from "../../api/api";
 
-const SvgComponent = (props) => {
+// Componente svg da imagem que está no botão voltar
+
+const BotaoVoltar = (props) => {
   return (
     <Svg
       width={12}
@@ -43,68 +45,68 @@ const SvgComponent = (props) => {
   );
 };
 
-const DetalheAdicionaColetas = ({ route, navigation }) => {
-  const { categoria } = route.params;
-  const [nomeMaterial, setNomeMaterial] = useState("");
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [isEnabled, setIsEnabled] = useState(false);
+// Componente principal renderizado
 
-  
+const DetalheAdicionaColetas = ({ route, navigation }) => {
+  const { categoria } = route.params; // Armazena a categoria selecionada da página anterior
+  const [local, setLocal] = useState(""); // Armazena a string de busca da localização
+  const [localizacao, setLocalizacao] = useState(""); // Armazena um objeto {latitude, longitude}
+  const [dados, setDados] = useState({ // Armazena todos os dados que serão enviados ao banco para poder registrar uma coleta
+    categoria: categoria,
+    coletaNome: "",
+    local: "",
+  });
+  const [isEnabled, setIsEnabled] = useState(false); // Verifica se a switch de acessar meu local está ativada
+
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
     Montserrat_500Medium,
     Montserrat_400Regular,
   });
-  
-  useEffect(
-    
-    accessCurrentLocation = () => {
-      (async  () => {
-        let { status } = await Location.requestPermissionsAsync();
-        if (status !== 'granted') {
-          Alert.alert('Houve erro para acessar sua localização, por favor tente novamente')
-        }
-        
-        let location = await Location.getCurrentPositionAsync({});
-        setLocation(location);
-      })();
-    },
 
-    
-  []);
-
-  const returnLatLong = (data) => {
-    var coords;
-    if (data['details']){
-      let dataCoords = data['details']['geometry']['location']
-      coords = {
-        latitude: dataCoords['lat'],
-        longitude: dataCoords['lng'],
+  // Função assíncrona para acessar a localização atual do usuário, utilizei o pacote Location do prórpio expo
+  acessarLocalizacaoAtual = () => {
+    (async () => {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert(
+          "Houve erro para acessar sua localização, por favor tente novamente"
+        );
       }
-    }
-    else {
-      let dataCoords = data['coords']
-      coords = {
-        latitude: dataCoords['latitude'],
-        longitude: dataCoords['longitude'],
-      }
-    }
-    return coords
-  }
 
-  let text = 'Waiting..';
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-  }
+      let localizacao_atual = await Location.getCurrentPositionAsync({});
+      setLocalizacao(returnLatLong(localizacao_atual, "coords"));
+    })();
+  };
+
+  // Função que verifica se a pessoa escreveu o local ou acessou sua localização atual, ela retorna um objeto com estas coordenadas
+
+  returnLatLong = (data, name) => {
+    var coords = null;
+    if (name == "details") {
+      let dataCoords = data["details"]["geometry"]["location"];
+      coords = {
+        latitude: dataCoords["lat"],
+        longitude: dataCoords["lng"],
+      };
+    } else if (name == "coords") {
+      let dataCoords = data["coords"];
+      coords = {
+        latitude: dataCoords["latitude"],
+        longitude: dataCoords["longitude"],
+      };
+    }
+    return coords;
+  };
 
   if (!fontsLoaded) {
     return <AppLoading />;
   } else
     return (
       <View style={styles.container}>
+
+        {/* Botão para voltar na página de selecionar a categoria da coleta */}
+
         <View style={styles.areaBotaoVoltar}>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -113,53 +115,54 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
             }}
             style={styles.botaoVoltar}
           >
-            <SvgComponent style={styles.imagemBotaoVoltar} />
+            <BotaoVoltar style={styles.imagemBotaoVoltar} />
           </TouchableOpacity>
         </View>
+
+        {/* Título da página */}
 
         <View style={styles.areaDetalheCategoria}>
           <Text style={styles.detalheCategoria}>Detalhe seu material</Text>
         </View>
 
+        {/* Área do formulário de registro da coleta */}
+
         <View style={styles.formularioColeta}>
+
+          {/* Entrada do nome do material de coleta */}
+
           <TextInput
             style={styles.descricaoColeta}
             placeholder={"Nome do material"}
-            onChangeText={(material) => setNomeMaterial(material)}
+            onChangeText={(material) =>
+              setDados({
+                categoria: categoria,
+                nomeMaterial: material,
+                local: localizacao,
+              })
+            }
             maxLength={25}
-            value={nomeMaterial}
+            value={dados.nomeMaterial}
           />
 
-          <View style={styles.areaSelecionarMeuLocal}>
-            <View style={styles.areaTextoSelecionarMeuLocal}>
-              <Text style={styles.textoPrincipalSelecionarMeuLocal}>
-                Permissão da localização
-              </Text>
-              <Text style={styles.textoSecundarioSelecionarMeuLocal}>
-                Eu permito compartilhar a {"\n"}minha localização atual
-              </Text>
-            </View>
+          {/* Se a switch de acessar meu local está desativada, vamos renderizar a busca por um local */}
 
-            <View style={styles.areaCheckboxSelecionarMeuLocal}>
-              <Switch
-                trackColor={{ false: "#767577", true: "#69D669" }}
-                thumbColor={isEnabled ? "#fff" : "#69D669"}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={() => {
-                  setIsEnabled(!isEnabled)
-                  accessCurrentLocation()
-                }}
-                value={isEnabled}
-              />
-            </View>
-          </View>
-
-          {isEnabled ? null : 
-            <GooglePlacesAutocomplete
+          {isEnabled ? null : (
+            <GooglePlacesAutocomplete  // Componente de busca da localização utilizando uma chave api do google e a Places API
               placeholder="Local da coleta"
               fetchDetails={true}
+              enablePoweredByContainer={false}
+              isRowScrollable={true}
+              numberOfLines={3}
               onPress={(data, details = null) => {
-                setLocation({data: data,details: details});
+                setDados({
+                  categoria: categoria,
+                  nomeMaterial: dados.nomeMaterial,
+                  local: returnLatLong(
+                    { data: data, details: details },
+                    "details"
+                  ),
+                });
               }}
               query={{
                 key: key,
@@ -167,22 +170,57 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
                 components: "country:br",
               }}
               styles={stylesBucaLocal}
+              isFocused={() => {
+                console.log("foco");
+              }}
+              textInputProps={{
+                onChangeText: (text) => {
+                  setLocal(text);
+                },
+              }}
             />
-          }
+          )}
+
+          {local !== "" ? null : ( // Se o campo de busca de local estiver preenchido, p switch de acessar meu local é desativado, facilitado na visão dos locais listados
+            <View style={styles.areaSelecionarMeuLocal}>
+              <View style={styles.areaTextoSelecionarMeuLocal}>
+                <Text style={styles.textoPrincipalSelecionarMeuLocal}>
+                  Permissão da localização
+                </Text>
+                <Text style={styles.textoSecundarioSelecionarMeuLocal}>
+                  Eu permito compartilhar a {"\n"}minha localização atual
+                </Text>
+              </View>
+
+              <View style={styles.areaCheckboxSelecionarMeuLocal}>
+                <Switch
+                  trackColor={{ false: "#767577", true: "#69D669" }}
+                  thumbColor={isEnabled ? "#fff" : "#69D669"}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={() => {
+                    setIsEnabled(!isEnabled);
+                    acessarLocalizacaoAtual();
+                    setDados({
+                      categoria: categoria,
+                      nomeMaterial: dados.nomeMaterial,
+                      local: localizacao,
+                    });
+                  }}
+                  value={isEnabled}
+                />
+              </View>
+            </View>
+          )}
 
           <TouchableOpacity
             style={styles.botaoConfirmar}
             onPress={() => {
-              var dados = {
-                categoria: categoria,
-                coletaNome: nomeMaterial,
-                local: returnLatLong(location),
-              }
-              if (!(dados['coletaNome'] || dados['local'])){
-                console.log(dados)
-              }
-              else{
-                Alert.alert('Por favor, revise os dados')
+              if (dados["coletaNome"] !== "" && dados["local"] !== "") { // Verifico se nenhum campo está vazio, se estiver eu alerto o usuário, 
+                console.log(dados);                                      // se não, eu imprimos todos os dados registrados;
+                Alert.alert("Produto adicionado com sucesso !");
+                navigation.navigate("ListaColetas");
+              } else {
+                Alert.alert("Por favor, revise os dados");
               }
             }}
           >
@@ -191,7 +229,6 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
         </View>
       </View>
     );
-
 };
 
 export default DetalheAdicionaColetas;

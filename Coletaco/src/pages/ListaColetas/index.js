@@ -16,25 +16,20 @@ import {
   Montserrat_400Regular,
 } from "@expo-google-fonts/montserrat";
 
+
+// Cirei a lista de objetos abixo pra simular a Flatlist e já criar estilos para os itens
 const coletas = [
   { key: "0", nome: "Latinha", categoria: "Metal", local: "Meu local" },
   { key: "1", nome: "Papelão", categoria: "Papel", local: "Meu local" },
   { key: "2", nome: "Garrafa PET", categoria: "Plástico", local: "Meu local" },
-  {
-    key: "3",
-    nome: "Garrafa de Vidro",
-    categoria: "Vidro",
-    local: "Meu local",
-  },
+  { key: "3", nome: "Garrafa de Vidro", categoria: "Vidro", local: "Meu local"},
   { key: "4", nome: "Papelão", categoria: "Papel", local: "Meu local" },
   { key: "5", nome: "Garrafa PET", categoria: "Plástico", local: "Meu local" },
-  {
-    key: "6",
-    nome: "Garrafa de Vidro",
-    categoria: "Vidro",
-    local: "Meu local",
-  },
+  { key: "6", nome: "Garrafa de Vidro", categoria: "Vidro", local: "Meu local"}
 ];
+
+// Este objeto carrega as características de cada categoria, como cor de fundo, cor do texto, ícone específico
+// e o ângulo do ícone, o qual desejamos que a categoria Plástico e vidro ficasse em 45 graus
 
 const dadosCategoria = {
   Metal: {
@@ -63,9 +58,13 @@ const dadosCategoria = {
   },
 };
 
+//Criei esta função pra ser a renderização de cada item,
+// o qual passo como parâmetro o item da lista de objetos a ser renderizado
+
 const Coleta = (props) => {
   var categoria = dadosCategoria[props.categoria];
   return (
+
     <Pressable
       onPress={() => {
         console.log(props.nome);
@@ -106,7 +105,9 @@ const Coleta = (props) => {
   );
 };
 
-const SvgComponent = (props) => {
+// Esta função carrga a imagem svg que utilizamos no botão de adicionar coleta
+
+const BotaoAdicionarColeta = (props) => {
   return (
     <Svg width="100%" height="100%" viewBox="0 0 28 28" fill="none" {...props}>
       <Path
@@ -119,6 +120,8 @@ const SvgComponent = (props) => {
     </Svg>
   );
 };
+
+// Aqui é o componente principal que vai renderizar o título e a lista de coletas
 
 const ListaColetas = ({ navigation }) => {
   let [fontsLoaded] = useFonts({
@@ -135,8 +138,11 @@ const ListaColetas = ({ navigation }) => {
           <Text style={styles.textoTitulo}>Coletas</Text>
         </View>
 
+        {/* Aqui eu renderizo a lista de coletas do colaborador */}
+
         <View style={styles.areaListaColetas}>
           <FlatList
+            showsVerticalScrollIndicator={false}
             data={coletas}
             renderItem={({ item }) => (
               <Coleta
@@ -144,20 +150,21 @@ const ListaColetas = ({ navigation }) => {
                 nome={item.nome}
                 categoria={item.categoria}
                 local={item.local}
-                showsVerticalScrollIndicator={false}
-              />
+                />
             )}
           />
         </View>
 
+        {/* Aqui eu crio um botão flutuante com a função de navegar para a página de adicionar coleta */}
+
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => {
-            navigation.navigate("AdicionaColetas");
+            navigation.navigate("AdicionaColetas",{dadosCategoria: dadosCategoria});
           }}
           style={styles.botaoAdicionaColeta}
         >
-          <SvgComponent style={styles.imagemBotaoAdicionaColeta} />
+          <BotaoAdicionarColeta style={styles.imagemBotaoAdicionaColeta} />
         </TouchableOpacity>
       </View>
     );

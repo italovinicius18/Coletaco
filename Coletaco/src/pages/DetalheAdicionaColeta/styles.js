@@ -74,6 +74,7 @@ export const styles = StyleSheet.create({
         flex: 1,   
         flexDirection: "row",
         alignItems: "center",
+        // backgroundColor: 'blue',
     },
 
     areaTextoSelecionarMeuLocal: {
@@ -123,7 +124,8 @@ export const styles = StyleSheet.create({
 
 export const stylesBucaLocal = {
     container: {
-            flex: 1,
+        flex: 3,
+        paddingTop: "4%",
     },
 
     textInputContainer: {
@@ -145,14 +147,16 @@ export const stylesBucaLocal = {
         borderBottomRightRadius: 5,
         borderBottomLeftRadius: 5,
         borderColor: '#c8c7cc',
-        borderTopWidth: 0.5,
+        borderTopWidth: 0.,
     },
     powered: {
         
     },
     listView: {
+        flex: 1,
     },
     row: {
+        flex: 1,
         backgroundColor: '#FFFFFF',
         flexDirection: 'row',
     },
@@ -164,9 +168,9 @@ export const stylesBucaLocal = {
         color: "#474A57",
     },
     loader: {
+        flex: 1,
         flexDirection: 'row',
-        backgroundColor: 'blue',
         justifyContent: 'flex-end',
-        height: 20,
+        height: 18,
     },
   };

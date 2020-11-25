@@ -9,34 +9,7 @@ import {
   Montserrat_400Regular,
 } from "@expo-google-fonts/montserrat";
 
-const dadosCategoria = {
-  Metal: {
-    cor: "#F1F312",
-    corTexto: "#18191F",
-    imagem: require("../../img/lata.png"),
-    angulo: [{ rotate: "0deg" }],
-  },
-  Papel: {
-    cor: "#48ACF0",
-    corTexto: "white",
-    imagem: require("../../img/caixa.png"),
-    angulo: [{ rotate: "0deg" }],
-  },
-  Plástico: {
-    cor: "#E53D00",
-    corTexto: "white",
-    imagem: require("../../img/garrafa_pet.png"),
-    angulo: [{ rotate: "45deg" }],
-  },
-  Vidro: {
-    cor: "#08C49B",
-    corTexto: "white",
-    imagem: require("../../img/garrafa_vidro.png"),
-    angulo: [{ rotate: "45deg" }],
-  },
-};
-
-const SvgComponent = (props) => {
+const BotaoVoltar = (props) => {
   return (
     <Svg width="100%" height="100%" viewBox="0 0 28 28" fill="none" {...props}>
       <Path
@@ -50,7 +23,9 @@ const SvgComponent = (props) => {
   );
 };
 
-const AdicionaColetas = ({ navigation }) => {
+const AdicionaColetas = ({ route,navigation }) => {
+  const {dadosCategoria} = route.params;
+
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
     Montserrat_400Regular,
@@ -69,7 +44,7 @@ const AdicionaColetas = ({ navigation }) => {
             }}
             style={styles.botaoVoltar}
           >
-            <SvgComponent style={styles.imagemBotaoVoltar} />
+            <BotaoVoltar style={styles.imagemBotaoVoltar} />
           </TouchableOpacity>
         </View>
 

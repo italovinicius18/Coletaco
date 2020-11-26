@@ -78,7 +78,7 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
   },
 
-  mapStyle: {
+  mapEstilo: {
     flex: 1,
     borderColor: "#18191F",
     borderStyle: "solid",

@@ -4,7 +4,6 @@ import {
   View,
   Image,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 import MapView, { Marker} from "react-native-maps";
 import { styles } from "./styles";
@@ -88,7 +87,7 @@ const TelaDoProduto = (props) => {
     },
   };
 
-  const categoriaDoCaraQueFezCadastro = {
+  const categoriaDeQuemFezCadastro = {
     Colaborador: { textoBotao: "Coletado" },
     Catador: { textoBotao: "Coletar" },
   };
@@ -96,7 +95,7 @@ const TelaDoProduto = (props) => {
   /// variáveis a serem alteradas
   var categoria = dadosCategoria["Vidro"];
   var disponivel = categoria.disponibilidade;
-  var categoriaBraba = categoriaDoCaraQueFezCadastro["Catador"];
+  var categoriaDoCadastrado = categoriaDeQuemFezCadastro["Catador"];
 
   const [ativo, setAtivo] = useState(disponivel === "Pendete" ? 1: 0); // variável para fazer a renderização condicional do botão
   const [disposto, setDisposto] = useState(disponivel === "Pendete" ? 0: 1); // variável para fazer a renderização condicional
@@ -111,12 +110,7 @@ const TelaDoProduto = (props) => {
         <View style={styles.areaBotaoVoltar}>
           <TouchableOpacity // botão "Voltar"
             activeOpacity={0.7}
-            onPress={() =>
-              Alert.alert(
-                "Você tentou voltar, mas falhou. Vai aprender a programar"
-              )
-            }
-            //onPress={()=>{navigation.goBack()}} // botão, ao ser apertado, volta para tela ListaColetas
+            onPress={()=>{navigation.goBack()}} // botão, ao ser apertado, volta para tela ListaColetas
             style={styles.botaoVoltar}
           >
             <SvgComponent style={styles.imagemBotaoVoltar} />
@@ -148,19 +142,19 @@ const TelaDoProduto = (props) => {
               }}
             >
               <Text style={[styles.setCorBranca]}>
-                {categoriaBraba.textoBotao}
+                {categoriaDoCadastrado.textoBotao}
               </Text>
             </TouchableOpacity>
           </View>
         )}
 
-        {disposto ? null : ( // renderização condicionalv style = {[styles.botaoBotao]}
+        {disposto ? null : ( // renderização condicional
           <View style={styles.areaMapa}>
             <MapView
-              style={styles.mapStyle}
+              style={styles.mapEstilo}
               initialRegion={{
                 latitude: -15.8335066,
-                longitude: -47.955316, // Guará +-
+                longitude: -47.955316,
                 latitudeDelta: 0.561,
                 longitudeDelta: 0.3105,
               }}
@@ -172,7 +166,6 @@ const TelaDoProduto = (props) => {
                 }}
                 title={categoria.nome}
                 description="Park Shopping"
-                //icon={require('../../img/caixa.png')}
               ></Marker>
             </MapView>
           </View>

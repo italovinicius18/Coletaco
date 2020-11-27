@@ -6,6 +6,10 @@ import Cadastro from './pages/Cadastro';
 import Navegador from './pages/Navegador';
 import PerfilColetador from './pages/PerfilColetador';
 import PerfilColaborador from './pages/PerfilColaborador';
+import ListaColetas from './pages/ListaColetas';
+import AdicionaColetas from './pages/AdicionaColetas';
+import DetalheAdicionaColeta from './pages/DetalheAdicionaColeta';
+
 
 const Stack = createStackNavigator();
 
@@ -19,6 +23,9 @@ export default function Routes() {
       <Stack.Screen name="Navegador" component={Navegador}/>
       <Stack.Screen name="PerfilColaborador" component={PerfilColaborador} />
       <Stack.Screen name="PerfilColetador" component={PerfilColetador} />
+      <Stack.Screen name="ListaColetas" component={ListaColetas}/>
+      <Stack.Screen name="AdicionaColetas" component={AdicionaColetas}/>
+      <Stack.Screen name="DetalheAdicionaColeta" component={DetalheAdicionaColeta}/>
     </Stack.Navigator>
   );
 }

@@ -6,6 +6,7 @@ import Home from '../Home/index';
 import Login from '../Login/index';
 import Cadastro from '../Cadastro/index';
 import PerfilColetador from '../PerfilColetador';
+import ListaColetas from '../ListaColetas';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -29,7 +30,7 @@ const Navegador = () => (
       />
       <Tab.Screen
         name="ListaColetas"
-        component={Login}
+        component={ListaColetas}
         options={{
           tabBarLabel: 'Coletas',
           tabBarColor: '#ECECEC',

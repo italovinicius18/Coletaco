@@ -100,8 +100,7 @@ const PerfilColaborador = ({ navigation }) => {
         <View style={styles.areaBotaoVoltar}>
           <TouchableOpacity
             activeOpacity={0.7}
-            /*onPress={()=>{navigation.goBack()}}*/
-            onPress={() => { alert('Clicado') }}
+            onPress={() => { navigation.goBack() }}
             style={styles.botaoVoltar}>
             <SvgComponent style={styles.imagemBotaoVoltar} />
           </TouchableOpacity>

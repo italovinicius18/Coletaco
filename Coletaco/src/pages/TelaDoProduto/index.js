@@ -16,7 +16,9 @@ import {
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
 
-const TelaDoProduto = (props) => {
+const TelaDoProduto = ({ route, navigation }) => {
+  const coleta = route.params.coleta;
+
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
     Montserrat_500Medium,
@@ -45,41 +47,25 @@ const TelaDoProduto = (props) => {
   };
 
   const dadosCategoria = {
-    Metal: {
-      categoria: "Metal",
-      disponibilidade: "Pendente",
-      local: "Meu local",
-      nome: "Latinha",
+    'Metal': {
       cor: "#F1F312",
       corTexto: "#18191F",
       imagem: require("../../img/lata.png"),
       angulo: [{ rotate: "0deg" }],
     },
-    Papel: {
-      categoria: "Papel",
-      disponibilidade: "Pendente",
-      local: "Meu local",
-      nome: "Papelão",
+    'Papel': {
       cor: "#48ACF0",
       corTexto: "white",
       imagem: require("../../img/caixa.png"),
       angulo: [{ rotate: "0deg" }],
     },
-    Plastico: {
-      categoria: "Plástico",
-      disponibilidade: "Pendente",
-      local: "Meu local",
-      nome: "Garrafa PET",
+    'Plástico': {
       cor: "#E53D00",
       corTexto: "white",
       imagem: require("../../img/garrafa_pet.png"),
       angulo: [{ rotate: "45deg" }],
     },
-    Vidro: {
-      categoria: "Vidro",
-      disponibilidade: "Pendente",
-      local: "Meu local",
-      nome: "Garrafa de Vidro",
+    'Vidro': {
       cor: "#08C49B",
       corTexto: "white",
       imagem: require("../../img/garrafa_vidro.png"),
@@ -92,13 +78,15 @@ const TelaDoProduto = (props) => {
     Catador: { textoBotao: "Coletar" },
   };
 
+
   /// variáveis a serem alteradas
-  var categoria = dadosCategoria["Vidro"];
-  var disponivel = categoria.disponibilidade;
+  const categoria = dadosCategoria[coleta.categoria];
+  
+  var disponivel = coleta.disponibilidade;
   var categoriaDoCadastrado = categoriaDeQuemFezCadastro["Catador"];
 
-  const [ativo, setAtivo] = useState(disponivel === "Pendete" ? 1: 0); // variável para fazer a renderização condicional do botão
-  const [disposto, setDisposto] = useState(disponivel === "Pendete" ? 0: 1); // variável para fazer a renderização condicional
+  const [ativo, setAtivo] = useState(disponivel === "Pendente" ? 1: 0); // variável para fazer a renderização condicional do botão
+  const [disposto, setDisposto] = useState(disponivel === "Pendente" ? 0: 1); // variável para fazer a renderização condicional
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -124,12 +112,12 @@ const TelaDoProduto = (props) => {
           />
         </View>
         <View style={styles.areaDescricao}>
-          <Text style={[styles.descricaoColeta]}>{categoria.nome}</Text>
+          <Text style={[styles.descricaoColeta]}>{coleta.nome}</Text>
 
           <Text style={[styles.setCorPreta]}>
-            {categoria.categoria}
+            {coleta.categoria}
             {"\n"}
-            {categoria.local}
+            {coleta.local}
           </Text>
         </View>
 

@@ -19,13 +19,13 @@ import {
 
 // Cirei a lista de objetos abixo pra simular a Flatlist e já criar estilos para os itens
 const coletas = [
-  { key: "0", nome: "Latinha", categoria: "Metal", local: "Meu local" },
-  { key: "1", nome: "Papelão", categoria: "Papel", local: "Meu local" },
-  { key: "2", nome: "Garrafa PET", categoria: "Plástico", local: "Meu local" },
-  { key: "3", nome: "Garrafa de Vidro", categoria: "Vidro", local: "Meu local"},
-  { key: "4", nome: "Papelão", categoria: "Papel", local: "Meu local" },
-  { key: "5", nome: "Garrafa PET", categoria: "Plástico", local: "Meu local" },
-  { key: "6", nome: "Garrafa de Vidro", categoria: "Vidro", local: "Meu local"}
+  { key: "0", disponibilidade: "Pendente", nome: "Latinha", categoria: "Metal", local: "Meu local" },
+  { key: "1", disponibilidade: "Dísponível", nome: "Papelão", categoria: "Papel", local: "Meu local" },
+  { key: "2", disponibilidade: "Dísponível", nome: "Garrafa PET", categoria: "Plástico", local: "Meu local" },
+  { key: "3", disponibilidade: "Dísponível", nome: "Garrafa de Vidro", categoria: "Vidro", local: "Meu local"},
+  { key: "4", disponibilidade: "Pendente", nome: "Papelão", categoria: "Papel", local: "Meu local" },
+  { key: "5", disponibilidade: "Pendente", nome: "Garrafa PET", categoria: "Plástico", local: "Meu local" },
+  { key: "6", disponibilidade: "Pendente", nome: "Garrafa de Vidro", categoria: "Vidro", local: "Meu local"}
 ];
 
 // Este objeto carrega as características de cada categoria, como cor de fundo, cor do texto, ícone específico
@@ -67,7 +67,7 @@ const Coleta = (props) => {
 
     <Pressable
       onPress={() => {
-        console.log(props.nome);
+        props.navigate('TelaDoProduto',{coleta: props})
       }}
       style={({ pressed }) => [
         styles.itemColeta,
@@ -150,6 +150,7 @@ const ListaColetas = ({ navigation }) => {
                 nome={item.nome}
                 categoria={item.categoria}
                 local={item.local}
+                navigate={navigation.navigate}
                 />
             )}
           />

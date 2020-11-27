@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './pages/Login';
@@ -9,7 +9,7 @@ import PerfilColaborador from './pages/PerfilColaborador';
 import ListaColetas from './pages/ListaColetas';
 import AdicionaColetas from './pages/AdicionaColetas';
 import DetalheAdicionaColeta from './pages/DetalheAdicionaColeta';
-
+import TelaDoProduto from './pages/TelaDoProduto';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +26,7 @@ export default function Routes() {
       <Stack.Screen name="ListaColetas" component={ListaColetas}/>
       <Stack.Screen name="AdicionaColetas" component={AdicionaColetas}/>
       <Stack.Screen name="DetalheAdicionaColeta" component={DetalheAdicionaColeta}/>
+      <Stack.Screen name="TelaDoProduto" component={TelaDoProduto}/>
     </Stack.Navigator>
   );
 }

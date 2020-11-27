@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Home from '../Home/index';
 import Login from '../Login/index';
 import Cadastro from '../Cadastro/index';
+import PerfilColetador from '../PerfilColetador';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -39,7 +40,7 @@ const Navegador = () => (
       />
       <Tab.Screen
         name="Perfil"
-        component={Cadastro}
+        component={PerfilColetador}
         options={{
           tabBarLabel: 'Perfil',
           tabBarColor: '#EFEFEF',

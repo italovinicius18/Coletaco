@@ -91,7 +91,7 @@ const Cadastro = ({ navigation }) => {
 					</RadioButton.Group>
 					
 					{/* Botão de Cadastro */}
-					<TouchableOpacity style={styles.botaoCadastro} onPress={() => {console.log(nomeCompleto + "; " + email + "; " + senha + "; " + tipoPerfil)}}>
+					<TouchableOpacity style={styles.botaoCadastro} onPress={() => {console.log(nomeCompleto + "; " + email + "; " + senha + "; " + tipoPerfil), navigation.navigate('Navegador',{usuario: 'coletador'})}}>
 						<Text style={styles.botaoCadastroText}>Cadastre-se</Text>
 					</TouchableOpacity>
 				</View>

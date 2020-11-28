@@ -13,28 +13,6 @@ import {
   PieChart,
 } from 'react-native-chart-kit'
 
-
-const SvgComponent = (props) => {
-  return (
-    <Svg
-      width={12}
-      height={20}
-      viewBox="0 0 12 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <Path
-        d="M9.667 18l-8-8 8-8"
-        stroke="#18191F"
-        strokeWidth={3}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </Svg>
-  );
-}
-
 // Criação da variável que representa as colaborações que a pessoal vez
 const dadosColaboracao = [
   {
@@ -95,16 +73,6 @@ const PerfilColaborador = ({ navigation }) => {
   } else
     return (
       <View style={styles.container}>
-
-        {/* Criação do botão voltar */}
-        <View style={styles.areaBotaoVoltar}>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => { navigation.goBack() }}
-            style={styles.botaoVoltar}>
-            <SvgComponent style={styles.imagemBotaoVoltar} />
-          </TouchableOpacity>
-        </View>
 
         {/* Definição da imagem do perfil do Colaborador */}
         <View style={styles.imagemPerfil}>

@@ -106,7 +106,7 @@ const Login = ({ navigation }) => {
 					/>
 
 					{/* Botão de Login */}
-					<TouchableOpacity style={styles.botaoLogin} onPress={() => {navigation.navigate('Navegador')}}>
+					<TouchableOpacity style={styles.botaoLogin} onPress={() => {navigation.navigate('Navegador',{usuario: 'colaborador'})}}>
 						<Text style={styles.botaoLoginText}>Login</Text>
 					</TouchableOpacity>
 				</View>

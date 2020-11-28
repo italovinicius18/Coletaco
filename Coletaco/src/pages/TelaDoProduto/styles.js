@@ -34,12 +34,12 @@ export const styles = StyleSheet.create({
   },
 
   areaImagem: {
-    flex: 1,
+    flex: 2,
     justifyContent: "center",
     alignItems: "center",
     padding: "25%",
     margin: "5%",
-    marginVertical: "0.001%",
+    marginVertical: "2%",
   },
 
   imagemColeta: {

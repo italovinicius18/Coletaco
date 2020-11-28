@@ -7,41 +7,13 @@ export const styles = StyleSheet.create({
         backgroundColor: '#69D669',
     },
 
-    areaBotaoVoltar: {
-        paddingTop: "8%",
-        paddingLeft: "8%",
-        paddingBottom: 0,
-    },
-
-    botaoVoltar: {
-        width: 50,
-        height: 50,
-        aspectRatio: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        borderWidth: 2,
-        borderRadius: 30,
-        borderColor: "#000",
-        borderStyle: "solid",
-        paddingVertical: "3%",
-        shadowColor: "#18191F",
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.36,
-        shadowRadius: 6.68,
-        elevation: 11,
-    },
-
     imagemPerfil: {
         alignSelf: 'center',
-        paddingVertical: 1,
+        paddingTop: "5%",
     },
 
     fundoNome: {
-        paddingVertical: "3%",
+        paddingVertical: "2%",
         backgroundColor: '#18191F',
     },
 
@@ -73,13 +45,13 @@ export const styles = StyleSheet.create({
     areaListaPendentes: {
         flex: 1,
         padding: 2,
-        backgroundColor: "white",
+        backgroundColor: "#ECECEC",
     },
 
     areaListaColetados: {
         flex: 1,
         padding: 2,
-        backgroundColor: "white",
+        backgroundColor: "#ECECEC",
     },
 
     itemColeta: {
@@ -90,7 +62,6 @@ export const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 16,
         borderColor: "#000",
-        borderStyle: "solid",
         paddingVertical: "3%",
     },
 
@@ -127,7 +98,6 @@ export const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 30,
         borderColor: "#18191F",
-        borderStyle: "solid",
     },
 
 });

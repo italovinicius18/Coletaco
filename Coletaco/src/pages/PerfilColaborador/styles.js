@@ -7,46 +7,16 @@ export const styles = StyleSheet.create({
         backgroundColor: '#69D669',
     },
 
-    areaBotaoVoltar: {
-        paddingTop: "8%",
-        paddingLeft: "8%",
-        paddingBottom: 0,
-    },
-
-    botaoVoltar: {
-        width: 50,
-        height: 50,
-        aspectRatio: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        borderWidth: 2,
-        borderRadius: 30,
-        borderColor: "#000",
-        borderStyle: "solid",
-        paddingVertical: "3%",
-        shadowColor: "#18191F",
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.36,
-        shadowRadius: 6.68,
-        elevation: 11,
-    },
-
     imagemPerfil: {
+        marginTop: '5%',
         alignSelf: 'center',
     },
 
     fundo: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
-        // borderRadius: 30,
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        borderWidth: 4,
-        borderColor: "#000",
+        backgroundColor: '#ECECEC',
+        borderTopLeftRadius: 32,
+        borderTopRightRadius: 32,
     },
 
     linha: {

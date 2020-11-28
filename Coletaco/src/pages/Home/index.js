@@ -3,6 +3,12 @@ import { Text, View, Image} from 'react-native';
 import { styles } from './styles';
 import MapView, { Marker, Callout } from 'react-native-maps';
 
+const pendentes = [
+  { key: '0', produto: 'Latinha', latitude: -15.8335066, longitude: -47.955316, nome: 'Thorin', categoria: 'Metal'},
+  { key: '1', produto: 'Papelão', latitude: -15.8335066, longitude: -47.955316, nome: 'Balin', categoria: 'Papel'},
+  { key: '2', produto: 'Garrafa de vidro', latitude: -15.8335066, longitude: -47.955316, nome: 'Dwalin', categoria: 'Vidro'},
+];
+
 const Home = () => {
   return (
     <View style={styles.container}>
@@ -23,7 +29,6 @@ const Home = () => {
           }}
           title="Papelão"
           description="Park Shopping"
-          //icon={require('../../img/caixa.png')}
         >
           <Callout tooltip 
           onPress={() => console.log("Apertou papel!")}>
@@ -46,7 +51,6 @@ const Home = () => {
             latitude:-15.9335066,
             longitude:-47.755316,
           }}
-          //icon={require('../../img/caixa.png')}
         >
           <Callout tooltip 
           onPress={() => console.log("Apertou plástico!")}>

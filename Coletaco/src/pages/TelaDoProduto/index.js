@@ -80,9 +80,10 @@ const TelaDoProduto = ({ route, navigation }) => {
 
 
   /// variáveis a serem alteradas
+  console.log(coleta)
   const categoria = dadosCategoria[coleta.categoria];
-  
-  var disponivel = coleta.disponibilidade;
+
+  var disponivel = route.params['disponibilidade'] ? route.params['disponibilidade'] : "";
   var categoriaDoCadastrado = categoriaDeQuemFezCadastro["Catador"];
 
   const [ativo, setAtivo] = useState(disponivel === "Pendente" ? 1: 0); // variável para fazer a renderização condicional do botão
@@ -141,16 +142,16 @@ const TelaDoProduto = ({ route, navigation }) => {
             <MapView
               style={styles.mapEstilo}
               initialRegion={{
-                latitude: -15.8335066,
-                longitude: -47.955316,
+                latitude: coleta.latitude,
+                longitude: coleta.longitude,
                 latitudeDelta: 0.561,
                 longitudeDelta: 0.3105,
               }}
             >
               <Marker
                 coordinate={{
-                  latitude: -15.8335066,
-                  longitude: -47.955316,
+                  latitude: coleta.latitude,
+                  longitude: coleta.longitude,
                 }}
                 title={categoria.nome}
                 description="Park Shopping"

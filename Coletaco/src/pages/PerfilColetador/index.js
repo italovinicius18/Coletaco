@@ -1,74 +1,175 @@
-import React from 'react';
-import { Text, View, Image, Pressable, FlatList } from 'react-native';
-import { styles } from './styles';
-import { useNavigation } from '@react-navigation/native';
+import React from "react";
+import { Text, View, Image, Pressable, FlatList } from "react-native";
+import { styles } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   useFonts,
   Montserrat_800ExtraBold,
   Montserrat_400Regular,
   Montserrat_500Medium,
-} from '@expo-google-fonts/montserrat';
-import { AppLoading } from 'expo';
+} from "@expo-google-fonts/montserrat";
+import { AppLoading } from "expo";
 
 // Criação das variáveis que representam as entregas pendentes e finalizadas (coletadas)
 const pendentes = [
-  { key: '0', produto: 'Latinha', latitude: -15.8335066, longitude: -47.955316, nome: 'Thorin', imagem: require('../img/Colaborador.png'), categoria: 'Metal'},
-  { key: '1', produto: 'Papelão', latitude: -15.8335066, longitude: -47.955316, nome: 'Balin', imagem: require('../img/Colaborador.png'), categoria: 'Papel'},
-  { key: '2', produto: 'Papelão', latitude: -15.8335066, longitude: -47.955316, nome: 'Dwalin', imagem: require('../img/Colaborador.png'), categoria: 'Papel'},
-  { key: '3', produto: 'Papelão', latitude: -15.8335066, longitude: -47.955316, nome: 'Fili', imagem: require('../img/Colaborador.png'), categoria: 'Papel'},
-  { key: '4', produto: 'Papelão', latitude: -15.8335066, longitude: -47.955316, nome: 'kili', imagem: require('../img/Colaborador.png'), categoria: 'Papel'},
-  { key: '5', produto: 'Papelão', latitude: -15.8335066, longitude: -47.955316, nome: 'Bombur', imagem: require('../img/Colaborador.png'), categoria: 'Papel'},
-  { key: '6', produto: 'Papelão', latitude: -15.8335066, longitude: -47.955316, nome: 'Bofur', imagem: require('../img/Colaborador.png'), categoria: 'Papel'},
+  {
+    key: "0",
+    produto: "Latinha",
+    latitude: -15.8335066,
+    longitude: -47.955316,
+    nome: "Thorin",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Metal",
+  },
+  {
+    key: "1",
+    produto: "Papelão",
+    latitude: -15.8335066,
+    longitude: -47.955316,
+    nome: "Balin",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Papel",
+  },
+  {
+    key: "2",
+    produto: "Papelão",
+    latitude: -15.8335066,
+    longitude: -47.955316,
+    nome: "Dwalin",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Papel",
+  },
+  {
+    key: "3",
+    produto: "Papelão",
+    latitude: -15.8335066,
+    longitude: -47.955316,
+    nome: "Fili",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Papel",
+  },
+  {
+    key: "4",
+    produto: "Papelão",
+    latitude: -15.8335066,
+    longitude: -47.955316,
+    nome: "kili",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Papel",
+  },
+  {
+    key: "5",
+    produto: "Papelão",
+    latitude: -15.8335066,
+    longitude: -47.955316,
+    nome: "Bombur",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Papel",
+  },
+  {
+    key: "6",
+    produto: "Papelão",
+    latitude: -15.8335066,
+    longitude: -47.955316,
+    nome: "Bofur",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Papel",
+  },
 ];
 
 const coletados = [
-  { key: '0', produto: 'Latinha', nome: 'Thorin', imagem: require('../img/Colaborador.png'), categoria: 'Metal'},
-  { key: '1', produto: 'Papelão', nome: 'Balin', imagem: require('../img/Colaborador.png'), categoria: 'Papel'},
-  { key: '2', produto: 'Papelão', nome: 'Dwalin', imagem: require('../img/Colaborador.png'), categoria: 'Papel'},
-  { key: '3', produto: 'Papelão', nome: 'Fili', imagem: require('../img/Colaborador.png'), categoria: 'Papel'},
-  { key: '4', produto: 'Papelão', nome: 'kili', imagem: require('../img/Colaborador.png'), categoria: 'Papel'},
-  { key: '5', produto: 'Papelão', nome: 'Bombur', imagem: require('../img/Colaborador.png'), categoria: 'Papel'},
-  { key: '6', produto: 'Papelão', nome: 'Bofur', imagem: require('../img/Colaborador.png'), categoria: 'Papel'},
+  {
+    key: "0",
+    produto: "Latinha",
+    nome: "Thorin",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Metal",
+  },
+  {
+    key: "1",
+    produto: "Papelão",
+    nome: "Balin",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Papel",
+  },
+  {
+    key: "2",
+    produto: "Papelão",
+    nome: "Dwalin",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Papel",
+  },
+  {
+    key: "3",
+    produto: "Papelão",
+    nome: "Fili",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Papel",
+  },
+  {
+    key: "4",
+    produto: "Papelão",
+    nome: "kili",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Papel",
+  },
+  {
+    key: "5",
+    produto: "Papelão",
+    nome: "Bombur",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Papel",
+  },
+  {
+    key: "6",
+    produto: "Papelão",
+    nome: "Bofur",
+    imagem: require("../img/Colaborador.png"),
+    categoria: "Papel",
+  },
 ];
-
 
 const Coleta = (props) => {
   const navigation = useNavigation();
-  const ativo = props.tipo==='pendentes' ? false : true;
+  const ativo = props.tipo === "pendentes" ? false : true;
   return (
-    // Função que irá retornar as informações das variáveis 'pendentes' e 'coletados', também irá retornar o estilo de cada View criada 
-    <Pressable disabled={ativo} onPress={() => { navigation.navigate('TelaDoProduto',{coleta: props, disponibilidade: 'Pendente'}) }} style={({ pressed }) => [
-      styles.itemColeta,
-      {
-        backgroundColor: pressed
-          ? '#69D669'
-          : 'white'
-      }
-    ]}>
+    // Função que irá retornar as informações das variáveis 'pendentes' e 'coletados', também irá retornar o estilo de cada View criada
+    <Pressable
+      disabled={ativo}
+      onPress={() => {
+        navigation.navigate("TelaDoProduto", {
+          coleta: props,
+          disponibilidade: "Pendente",
+        });
+      }}
+      style={({ pressed }) => [
+        styles.itemColeta,
+        {
+          backgroundColor: pressed ? "#69D669" : "white",
+        },
+      ]}
+    >
       <View style={styles.areaImagemPerfil}>
         <Image
-          style={[styles.imagemListaPerfil, { backgroundColor: props.backgroundColor }]}
+          style={[
+            styles.imagemListaPerfil,
+            { backgroundColor: props.backgroundColor },
+          ]}
           source={props.imagem}
         />
       </View>
       <View style={styles.dadosColeta}>
         <View style={styles.areaTituloDadosColeta}>
-          <Text style={styles.tituloDadosColeta} >
-            {props.produto}
-          </Text>
+          <Text style={styles.tituloDadosColeta}>{props.produto}</Text>
         </View>
-        <Text style={styles.descricaoDadosNome}>
-          {props.nome}
-        </Text>
+        <Text style={styles.descricaoDadosNome}>{props.nome}</Text>
       </View>
-
     </Pressable>
   );
-}
+};
 
 const PerfilColetador = ({ navigation }) => {
-
   // Definição das fontes
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
@@ -80,13 +181,10 @@ const PerfilColetador = ({ navigation }) => {
     return <AppLoading />;
   } else
     return (
-
       <View style={styles.container}>
-
         {/* Definição da imagem do perfil do catador */}
         <View style={styles.imagemPerfil}>
-          <Image source={require('../img/Catador.png')}
-          />
+          <Image source={require("../img/Catador.png")} />
         </View>
 
         {/* Definição estática do nome e status como catador */}
@@ -98,25 +196,42 @@ const PerfilColetador = ({ navigation }) => {
         {/* Criação das FlatList que representam a lista de coletas pendentes e finalizadas */}
         <View style={styles.areaListaPendentes}>
           <Text style={styles.tituloPendente}> Pendentes </Text>
-          <FlatList data={pendentes}
+          <FlatList
+            data={pendentes}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => <Coleta tipo={'pendentes'} chave={item.key} produto={item.produto} latitude={item.latitude} longitude={item.longitude} nome={item.nome} imagem={item.imagem} categoria={item.categoria}/>}
+            renderItem={({ item }) => (
+              <Coleta
+                tipo={"pendentes"}
+                chave={item.key}
+                produto={item.produto}
+                latitude={item.latitude}
+                longitude={item.longitude}
+                nome={item.nome}
+                imagem={item.imagem}
+                categoria={item.categoria}
+              />
+            )}
           />
         </View>
 
         <View style={styles.areaListaColetados}>
           <Text style={styles.tituloColetado}> Coletados </Text>
-          <FlatList data={coletados}
+          <FlatList
+            data={coletados}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => <Coleta tipo={'coletados'} chave={item.key} produto={item.produto} nome={item.nome} imagem={item.imagem} />}
+            renderItem={({ item }) => (
+              <Coleta
+                tipo={"coletados"}
+                chave={item.key}
+                produto={item.produto}
+                nome={item.nome}
+                imagem={item.imagem}
+              />
+            )}
           />
         </View>
-
       </View>
-
-
-
     );
-}
+};
 
 export default PerfilColetador;

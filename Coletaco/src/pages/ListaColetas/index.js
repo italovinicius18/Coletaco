@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-native";
 import { styles } from "./styles";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 import { AppLoading } from "expo";
 import Svg, { Path } from "react-native-svg";
 import {
@@ -17,16 +17,57 @@ import {
   Montserrat_400Regular,
 } from "@expo-google-fonts/montserrat";
 
-
 // Cirei a lista de objetos abixo pra simular a Flatlist e já criar estilos para os itens
 const coletas = [
-  { key: "0", disponibilidade: "Pendente", nome: "Latinha", categoria: "Metal", local: "Meu local" },
-  { key: "1", disponibilidade: "Dísponível", nome: "Papelão", categoria: "Papel", local: "Meu local" },
-  { key: "2", disponibilidade: "Dísponível", nome: "Garrafa PET", categoria: "Plástico", local: "Meu local" },
-  { key: "3", disponibilidade: "Dísponível", nome: "Garrafa de Vidro", categoria: "Vidro", local: "Meu local"},
-  { key: "4", disponibilidade: "Pendente", nome: "Papelão", categoria: "Papel", local: "Meu local" },
-  { key: "5", disponibilidade: "Pendente", nome: "Garrafa PET", categoria: "Plástico", local: "Meu local" },
-  { key: "6", disponibilidade: "Pendente", nome: "Garrafa de Vidro", categoria: "Vidro", local: "Meu local"}
+  {
+    key: "0",
+    disponibilidade: "Pendente",
+    nome: "Latinha",
+    categoria: "Metal",
+    local: "Meu local",
+  },
+  {
+    key: "1",
+    disponibilidade: "Dísponível",
+    nome: "Papelão",
+    categoria: "Papel",
+    local: "Meu local",
+  },
+  {
+    key: "2",
+    disponibilidade: "Dísponível",
+    nome: "Garrafa PET",
+    categoria: "Plástico",
+    local: "Meu local",
+  },
+  {
+    key: "3",
+    disponibilidade: "Dísponível",
+    nome: "Garrafa de Vidro",
+    categoria: "Vidro",
+    local: "Meu local",
+  },
+  {
+    key: "4",
+    disponibilidade: "Pendente",
+    nome: "Papelão",
+    categoria: "Papel",
+    local: "Meu local",
+  },
+  {
+    key: "5",
+    disponibilidade: "Pendente",
+    nome: "Garrafa PET",
+    categoria: "Plástico",
+    local: "Meu local",
+  },
+  {
+    key: "6",
+    disponibilidade: "Pendente",
+    nome: "Garrafa de Vidro",
+    categoria: "Vidro",
+    local: "Meu local",
+  },
 ];
 
 // Este objeto carrega as características de cada categoria, como cor de fundo, cor do texto, ícone específico
@@ -62,16 +103,17 @@ const dadosCategoria = {
 //Criei esta função pra ser a renderização de cada item,
 // o qual passo como parâmetro o item da lista de objetos a ser renderizado
 
-
 const Coleta = (props) => {
   const navigation = useNavigation();
-  const coleta = props.coleta
+  const coleta = props.coleta;
   var categoria = dadosCategoria[coleta.categoria];
   return (
-
     <Pressable
       onPress={() => {
-        navigation.navigate('TelaDoProduto',{coleta: coleta, usuario: props.usuario})
+        navigation.navigate("TelaDoProduto", {
+          coleta: coleta,
+          usuario: props.usuario,
+        });
       }}
       style={({ pressed }) => [
         styles.itemColeta,
@@ -151,10 +193,7 @@ const ListaColetas = (props) => {
             showsVerticalScrollIndicator={false}
             data={coletas}
             renderItem={({ item }) => (
-              <Coleta
-                coleta={item}
-                usuario={props.usuario}
-                />
+              <Coleta coleta={item} usuario={props.usuario} />
             )}
           />
         </View>
@@ -164,7 +203,9 @@ const ListaColetas = (props) => {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => {
-            navigation.navigate("AdicionaColetas",{dadosCategoria: dadosCategoria});
+            navigation.navigate("AdicionaColetas", {
+              dadosCategoria: dadosCategoria,
+            });
           }}
           style={styles.botaoAdicionaColeta}
         >

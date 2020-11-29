@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -12,7 +12,7 @@ import { styles, stylesBucaLocal } from "./styles";
 import { AppLoading } from "expo";
 import Svg, { Path } from "react-native-svg";
 import * as Location from "expo-location"; // Pacote utilizado para acessar alocalização atual do usuário
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"; // Pacote utilizado pra facilitar a busca de localizações 
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"; // Pacote utilizado pra facilitar a busca de localizações
 import {
   useFonts,
   Montserrat_800ExtraBold,
@@ -51,7 +51,8 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
   const { categoria } = route.params; // Armazena a categoria selecionada da página anterior
   const [local, setLocal] = useState(""); // Armazena a string de busca da localização
   const [localizacao, setLocalizacao] = useState(""); // Armazena um objeto {latitude, longitude}
-  const [dados, setDados] = useState({ // Armazena todos os dados que serão enviados ao banco para poder registrar uma coleta
+  const [dados, setDados] = useState({
+    // Armazena todos os dados que serão enviados ao banco para poder registrar uma coleta
     categoria: categoria,
     coletaNome: "",
     local: "",
@@ -104,7 +105,6 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
   } else
     return (
       <View style={styles.container}>
-
         {/* Botão para voltar na página de selecionar a categoria da coleta */}
 
         <View style={styles.areaBotaoVoltar}>
@@ -128,7 +128,6 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
         {/* Área do formulário de registro da coleta */}
 
         <View style={styles.formularioColeta}>
-
           {/* Entrada do nome do material de coleta */}
 
           <TextInput
@@ -148,7 +147,7 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
           {/* Se a switch de acessar meu local está desativada, vamos renderizar a busca por um local */}
 
           {isEnabled ? null : (
-            <GooglePlacesAutocomplete  // Componente de busca da localização utilizando uma chave api do google e a Places API
+            <GooglePlacesAutocomplete // Componente de busca da localização utilizando uma chave api do google e a Places API
               placeholder="Local da coleta"
               fetchDetails={true}
               enablePoweredByContainer={false}
@@ -215,8 +214,9 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
           <TouchableOpacity
             style={styles.botaoConfirmar}
             onPress={() => {
-              if (dados["coletaNome"] !== "" && dados["local"] !== "") { // Verifico se nenhum campo está vazio, se estiver eu alerto o usuário, 
-                console.log(dados);                                      // se não, eu imprimos todos os dados registrados;
+              if (dados["coletaNome"] !== "" && dados["local"] !== "") {
+                // Verifico se nenhum campo está vazio, se estiver eu alerto o usuário,
+                console.log(dados); // se não, eu imprimos todos os dados registrados;
                 Alert.alert("Produto adicionado com sucesso !");
                 navigation.navigate("ListaColetas");
               } else {

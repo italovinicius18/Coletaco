@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
   botaoBotao: {
     flex: 1,
     width: "100%",
-    marginVertical: "30%",
+    marginVertical: "15%",
     backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",

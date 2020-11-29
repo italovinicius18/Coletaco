@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, Pressable, FlatList, Dimensions } from 'react-native';
+import { Text, View, Image, Dimensions } from 'react-native';
 import { styles } from './styles';
-import Svg, { Path } from 'react-native-svg';
+
 import {
   useFonts,
   Montserrat_800ExtraBold,

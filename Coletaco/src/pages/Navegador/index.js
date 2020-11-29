@@ -11,7 +11,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 const Navegador = ({route,navigation}) => {
   const usuario = route.params.usuario;
-  console.log(usuario)
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -21,7 +21,7 @@ const Navegador = ({route,navigation}) => {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        children={() => <Home usuario={usuario}/>}
         options={{
           tabBarLabel: 'Mapa',
           tabBarColor: '#fff',
@@ -35,7 +35,7 @@ const Navegador = ({route,navigation}) => {
         usuario === 'coletador' ? null : (
           <Tab.Screen
             name="ListaColetas"
-            component={ListaColetas}
+            children={() => <ListaColetas usuario={usuario}/>}
             options={{
               tabBarLabel: 'Coletas',
               tabBarColor: '#ECECEC',
@@ -51,7 +51,7 @@ const Navegador = ({route,navigation}) => {
         usuario === 'coletador' ? (
           <Tab.Screen
             name="PerfilColetador"
-            component={PerfilColetador}
+            children={() => <PerfilColetador/>}
             options={{
               tabBarLabel: 'Perfil',
               tabBarColor: '#EFEFEF',
@@ -63,7 +63,7 @@ const Navegador = ({route,navigation}) => {
         ) : (
           <Tab.Screen
             name="PerfilColaborador"
-            component={PerfilColaborador}
+            children={() => <PerfilColaborador/>}
             options={{
               tabBarLabel: 'Perfil',
               tabBarColor: '#EFEFEF',

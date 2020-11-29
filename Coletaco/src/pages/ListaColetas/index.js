@@ -8,6 +8,7 @@ import {
   Image,
 } from "react-native";
 import { styles } from "./styles";
+import { useNavigation } from '@react-navigation/native';
 import { AppLoading } from "expo";
 import Svg, { Path } from "react-native-svg";
 import {
@@ -61,13 +62,16 @@ const dadosCategoria = {
 //Criei esta função pra ser a renderização de cada item,
 // o qual passo como parâmetro o item da lista de objetos a ser renderizado
 
+
 const Coleta = (props) => {
-  var categoria = dadosCategoria[props.categoria];
+  const navigation = useNavigation();
+  const coleta = props.coleta
+  var categoria = dadosCategoria[coleta.categoria];
   return (
 
     <Pressable
       onPress={() => {
-        props.navigate('TelaDoProduto',{coleta: props})
+        navigation.navigate('TelaDoProduto',{coleta: coleta, usuario: props.usuario})
       }}
       style={({ pressed }) => [
         styles.itemColeta,
@@ -81,18 +85,18 @@ const Coleta = (props) => {
           <Text
             style={[styles.tituloDadosColeta, { color: categoria.corTexto }]}
           >
-            {props.nome}
+            {coleta.nome}
           </Text>
         </View>
         <Text
           style={[styles.descricaoDadosColeta, { color: categoria.corTexto }]}
         >
-          {props.categoria}
+          {coleta.categoria}
         </Text>
         <Text
           style={[styles.descricaoDadosColeta, { color: categoria.corTexto }]}
         >
-          {props.local}
+          {coleta.local}
         </Text>
       </View>
       <View style={styles.areaImagemColeta}>
@@ -123,7 +127,9 @@ const BotaoAdicionarColeta = (props) => {
 
 // Aqui é o componente principal que vai renderizar o título e a lista de coletas
 
-const ListaColetas = ({ navigation }) => {
+const ListaColetas = (props) => {
+  const navigation = useNavigation();
+
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
     Montserrat_400Regular,
@@ -146,11 +152,8 @@ const ListaColetas = ({ navigation }) => {
             data={coletas}
             renderItem={({ item }) => (
               <Coleta
-                chave={item.key}
-                nome={item.nome}
-                categoria={item.categoria}
-                local={item.local}
-                navigate={navigation.navigate}
+                coleta={item}
+                usuario={props.usuario}
                 />
             )}
           />

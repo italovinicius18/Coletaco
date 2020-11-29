@@ -1,122 +1,118 @@
-import React from 'react';
-import { Text, View, Image} from 'react-native';
-import { styles } from './styles';
-import MapView, { Marker, Callout } from 'react-native-maps';
+import React, { useEffect, useState}  from "react";
+import { Text, View } from "react-native";
+import { styles } from "./styles";
+import { useNavigation } from '@react-navigation/native';
 
-const pendentes = [
-  { key: '0', produto: 'Latinha', latitude: -15.8335066, longitude: -47.955316, nome: 'Thorin', categoria: 'Metal'},
-  { key: '1', produto: 'Papelão', latitude: -15.8335066, longitude: -47.955316, nome: 'Balin', categoria: 'Papel'},
-  { key: '2', produto: 'Garrafa de vidro', latitude: -15.8335066, longitude: -47.955316, nome: 'Dwalin', categoria: 'Vidro'},
+import MapView, { Marker, Callout } from "react-native-maps";
+import * as Location from "expo-location"; // Pacote utilizado para acessar alocalização atual do usuário
+import { AppLoading } from "expo";
+import {
+  useFonts,
+  Montserrat_800ExtraBold,
+  Montserrat_500Medium,
+  Montserrat_400Regular,
+} from "@expo-google-fonts/montserrat";
+
+const coletas = [
+  {
+    key: "0",
+    produto: "Latinha",
+    latitude: -15.8335066,
+    longitude: -47.955316,
+    nome: "Thorin",
+    categoria: "Metal",
+  },
+  {
+    key: "1",
+    produto: "Papelão",
+    latitude: -15.821540,
+    longitude: -47.988128,
+    nome: "Balin",
+    categoria: "Papel",
+  },
+  {
+    key: "2",
+    produto: "Garrafa de vidro",
+    latitude: -15.831255, 
+    longitude: -48.015615,
+    nome: "Dwalin",
+    categoria: "Vidro",
+  },
 ];
 
-const Home = () => {
+const Home = (props) => {
+  const navigation = useNavigation();
+  const [localizacao,setLocalizacao] = useState('')
+  const usuario = props.usuario
+
+  let [fontsLoaded] = useFonts({
+    Montserrat_800ExtraBold,
+    Montserrat_500Medium,
+    Montserrat_400Regular,
+  });
+  
+  // Função assíncrona para acessar a localização atual do usuário, utilizei o pacote Location do prórpio expo
+  
+  useEffect(() => {
+      const acessarLocalizaçãoAtual = async () => {
+        let { status } = await Location.requestPermissionsAsync();
+        if (status !== "granted") {
+          Alert.alert(
+            "Houve erro para acessar sua localização, por favor tente novamente"
+            );
+          }
+          
+        let localizacao_atual = await Location.getCurrentPositionAsync({});
+        
+        let dataCoords = localizacao_atual["coords"];
+        let coords = {
+          latitude: dataCoords["latitude"],
+          longitude: dataCoords["longitude"],
+        };
+        setLocalizacao(coords)
+      }
+      acessarLocalizaçãoAtual()
+  }, []);
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else
   return (
     <View style={styles.container}>
       <MapView
         style={styles.mapStyle}
         initialRegion={{
-          latitude: -15.824997,
-          longitude: -47.964539, // Guará +-
+          latitude: localizacao.latitude ? localizacao.latitude : -15.831255,
+          longitude: localizacao.latitude ? localizacao.latitude : -48.015615,
           latitudeDelta: 0.561,
           longitudeDelta: 0.3105,
         }}
       >
 
-        <Marker
-          coordinate={{
-            latitude:-15.8335066,
-            longitude:-47.955316,
-          }}
-          title="Papelão"
-          description="Park Shopping"
-        >
-          <Callout tooltip 
-          onPress={() => console.log("Apertou papel!")}>
-            <View>
-              <View style={styles.calloutPadrao}>
-                <Image 
-                  style={styles.imagemPapel}
-                  source={require('../../img/caixa.png')}
-                >
-                </Image>
-                <Text style={styles.fonteCallout}>Papel</Text>
-                {/*<Text style={styles.fonteDescricao}>Caixas de Papelão</Text>*/}
-              </View>
-            </View>
-          </Callout>
-        </Marker>
-
-        <Marker
-          coordinate={{
-            latitude:-15.9335066,
-            longitude:-47.755316,
-          }}
-        >
-          <Callout tooltip 
-          onPress={() => console.log("Apertou plástico!")}>
-            <View>
-              <View style={styles.calloutPadrao}>
-                <Image 
-                  style={styles.imagemPlastico}
-                  source={require('../../img/garrafa_pet.png')}
-                >
-                </Image>
-                <Text style={styles.fonteCallout}>Plástico</Text>
-                {/*<Text style={styles.fonteDescricao}>Caixas de Papelão</Text>*/}
-              </View>
-            </View>
-          </Callout>
-        </Marker>
-
-        <Marker
-          coordinate={{
-            latitude:-15.7335066,
-            longitude:-47.955316,
-          }}
-          //icon={require('../../img/caixa.png')}
-        >
-          <Callout tooltip 
-          onPress={() => console.log("Apertou vidro!")}>
-            <View>
-              <View style={styles.calloutPadrao}>
-                <Image 
-                  style={styles.imagemVidro}
-                  source={require('../../img/garrafa_vidro.png')}
-                >
-                </Image>
-                <Text style={styles.fonteCallout}>Vidro</Text>
-                {/*<Text style={styles.fonteDescricao}>Caixas de Papelão</Text>*/}
-              </View>
-            </View>
-          </Callout>
-        </Marker>
-
-        <Marker
-          coordinate={{
-            latitude:-15.9335066,
-            longitude:-47.855316,
-          }}
-          //icon={require('../../img/caixa.png')}
-        >
-          <Callout tooltip 
-          onPress={() => console.log("Apertou metal!")}>
-            <View>
-              <View style={styles.calloutPadrao}>
-                <Image 
-                  style={styles.imagemMetal}
-                  source={require('../../img/lata.png')}
-                >
-                </Image>
-                <Text style={styles.fonteCallout}>Metal</Text>
-                {/*<Text style={styles.fonteDescricao}>Caixas de Papelão</Text>*/}
-              </View>
-            </View>
-          </Callout>
-        </Marker>
+      {
+        coletas.map(item => (
+            <Marker
+              key={item.key}
+              coordinate={{
+                latitude: item.latitude,
+                longitude: item.longitude,
+              }}
+            >
+              <Callout tooltip onPress={() => navigation.navigate('TelaDoProduto',{coleta: item, usuario: usuario})}>
+                <View>
+                  <View style={styles.calloutPadrao}>
+                    <Text style={styles.fonteCallout}>{item.produto}</Text>
+                  </View>
+                </View>
+              </Callout>
+            </Marker>
+          )
+        )
+      }
 
       </MapView>
     </View>
-  );
-}
+    );
+};
 
 export default Home;

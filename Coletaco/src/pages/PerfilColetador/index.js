@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, Pressable, FlatList } from 'react-native';
+import { Text, View, Image, Pressable, FlatList } from 'react-native';
 import { styles } from './styles';
-import Svg, { Path } from 'react-native-svg';
+import { useNavigation } from '@react-navigation/native';
+
 import {
   useFonts,
   Montserrat_800ExtraBold,
@@ -33,9 +34,11 @@ const coletados = [
 
 
 const Coleta = (props) => {
+  const navigation = useNavigation();
+  const ativo = props.tipo==='pendentes' ? false : true;
   return (
     // Função que irá retornar as informações das variáveis 'pendentes' e 'coletados', também irá retornar o estilo de cada View criada 
-    <Pressable onPress={() => { props.navigate('TelaDoProduto',{coleta: props, disponibilidade: 'Pendente'}) }} style={({ pressed }) => [
+    <Pressable disabled={ativo} onPress={() => { navigation.navigate('TelaDoProduto',{coleta: props, disponibilidade: 'Pendente'}) }} style={({ pressed }) => [
       styles.itemColeta,
       {
         backgroundColor: pressed
@@ -97,7 +100,7 @@ const PerfilColetador = ({ navigation }) => {
           <Text style={styles.tituloPendente}> Pendentes </Text>
           <FlatList data={pendentes}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => <Coleta chave={item.key} produto={item.produto} latitude={item.latitude} longitude={item.longitude} nome={item.nome} imagem={item.imagem} categoria={item.categoria} navigate={navigation.navigate}/>}
+            renderItem={({ item }) => <Coleta tipo={'pendentes'} chave={item.key} produto={item.produto} latitude={item.latitude} longitude={item.longitude} nome={item.nome} imagem={item.imagem} categoria={item.categoria}/>}
           />
         </View>
 
@@ -105,7 +108,7 @@ const PerfilColetador = ({ navigation }) => {
           <Text style={styles.tituloColetado}> Coletados </Text>
           <FlatList data={coletados}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => <Coleta chave={item.key} produto={item.produto} nome={item.nome} imagem={item.imagem} />}
+            renderItem={({ item }) => <Coleta tipo={'coletados'} chave={item.key} produto={item.produto} nome={item.nome} imagem={item.imagem} />}
           />
         </View>
 

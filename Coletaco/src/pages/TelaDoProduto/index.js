@@ -18,6 +18,8 @@ import { AppLoading } from "expo";
 
 const TelaDoProduto = ({ route, navigation }) => {
   const coleta = route.params.coleta;
+  const usuario = route.params.usuario;
+  console.log(usuario)
 
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
@@ -74,17 +76,16 @@ const TelaDoProduto = ({ route, navigation }) => {
   };
 
   const categoriaDeQuemFezCadastro = {
-    Colaborador: { textoBotao: "Coletado" },
-    Catador: { textoBotao: "Coletar" },
+    'coletador': { textoBotao: "Coletar" },
+    'colaborador': { textoBotao: "Coletado" },
   };
 
 
   /// variáveis a serem alteradas
-  console.log(coleta)
   const categoria = dadosCategoria[coleta.categoria];
 
   var disponivel = route.params['disponibilidade'] ? route.params['disponibilidade'] : "";
-  var categoriaDoCadastrado = categoriaDeQuemFezCadastro["Catador"];
+  var categoriaDoCadastrado = categoriaDeQuemFezCadastro[usuario];
 
   const [ativo, setAtivo] = useState(disponivel === "Pendente" ? 1: 0); // variável para fazer a renderização condicional do botão
   const [disposto, setDisposto] = useState(disponivel === "Pendente" ? 0: 1); // variável para fazer a renderização condicional
@@ -127,7 +128,11 @@ const TelaDoProduto = ({ route, navigation }) => {
             <TouchableOpacity
               style={[styles.botaoBotao]}
               onPress={() => {
-                setAtivo(1), setDisposto(0);
+                if(usuario==='colaborador'){
+                  setAtivo(1);
+                }else{
+                  setAtivo(1), setDisposto(0);
+                }
               }}
             >
               <Text style={[styles.setCorBranca]}>

@@ -1,15 +1,15 @@
-import React from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React from "react";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import Icon from "react-native-vector-icons/Ionicons";
 
-import Home from '../Home/index';
-import PerfilColetador from '../PerfilColetador';
-import PerfilColaborador from '../PerfilColaborador';
-import ListaColetas from '../ListaColetas';
+import Home from "../Home/index";
+import PerfilColetador from "../PerfilColetador";
+import PerfilColaborador from "../PerfilColaborador";
+import ListaColetas from "../ListaColetas";
 
 const Tab = createMaterialBottomTabNavigator();
 
-const Navegador = ({route,navigation}) => {
+const Navegador = ({ route, navigation }) => {
   const usuario = route.params.usuario;
 
   return (
@@ -21,62 +21,57 @@ const Navegador = ({route,navigation}) => {
     >
       <Tab.Screen
         name="Home"
-        children={() => <Home usuario={usuario}/>}
+        children={() => <Home usuario={usuario} />}
         options={{
-          tabBarLabel: 'Mapa',
-          tabBarColor: '#fff',
+          tabBarLabel: "Mapa",
+          tabBarColor: "#fff",
           tabBarIcon: ({ color }) => (
             <Icon name="md-map" color={color} size={26} />
           ),
         }}
       />
 
-      {
-        usuario === 'coletador' ? null : (
-          <Tab.Screen
-            name="ListaColetas"
-            children={() => <ListaColetas usuario={usuario}/>}
-            options={{
-              tabBarLabel: 'Coletas',
-              tabBarColor: '#ECECEC',
-              tabBarIcon: ({ color }) => (
-                <Icon name="md-list" color={color} size={26} />
-              ),
-            }}
-          />
-        )
-      }
+      {usuario === "coletador" ? null : (
+        <Tab.Screen
+          name="ListaColetas"
+          children={() => <ListaColetas usuario={usuario} />}
+          options={{
+            tabBarLabel: "Coletas",
+            tabBarColor: "#ECECEC",
+            tabBarIcon: ({ color }) => (
+              <Icon name="md-list" color={color} size={26} />
+            ),
+          }}
+        />
+      )}
 
-      {
-        usuario === 'coletador' ? (
-          <Tab.Screen
-            name="PerfilColetador"
-            children={() => <PerfilColetador/>}
-            options={{
-              tabBarLabel: 'Perfil',
-              tabBarColor: '#EFEFEF',
-              tabBarIcon: ({ color }) => (
-                <Icon name="md-person" color={color} size={26} />
-              ),
-            }}
-          />
-        ) : (
-          <Tab.Screen
-            name="PerfilColaborador"
-            children={() => <PerfilColaborador/>}
-            options={{
-              tabBarLabel: 'Perfil',
-              tabBarColor: '#EFEFEF',
-              tabBarIcon: ({ color }) => (
-                <Icon name="md-person" color={color} size={26} />
-              ),
-            }}
-          />
-        )
-      }
-      
+      {usuario === "coletador" ? (
+        <Tab.Screen
+          name="PerfilColetador"
+          children={() => <PerfilColetador />}
+          options={{
+            tabBarLabel: "Perfil",
+            tabBarColor: "#EFEFEF",
+            tabBarIcon: ({ color }) => (
+              <Icon name="md-person" color={color} size={26} />
+            ),
+          }}
+        />
+      ) : (
+        <Tab.Screen
+          name="PerfilColaborador"
+          children={() => <PerfilColaborador />}
+          options={{
+            tabBarLabel: "Perfil",
+            tabBarColor: "#EFEFEF",
+            tabBarIcon: ({ color }) => (
+              <Icon name="md-person" color={color} size={26} />
+            ),
+          }}
+        />
+      )}
     </Tab.Navigator>
-  )
-}
+  );
+};
 
 export default Navegador;

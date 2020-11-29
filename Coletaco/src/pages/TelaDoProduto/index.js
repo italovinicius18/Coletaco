@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import { 
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import MapView, { Marker} from "react-native-maps";
+import { Text, View, Image, TouchableOpacity } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 import { styles } from "./styles";
 import Svg, { Path } from "react-native-svg";
 import {
@@ -19,7 +14,7 @@ import { AppLoading } from "expo";
 const TelaDoProduto = ({ route, navigation }) => {
   const coleta = route.params.coleta;
   const usuario = route.params.usuario;
-  console.log(usuario)
+  console.log(usuario);
 
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
@@ -49,25 +44,25 @@ const TelaDoProduto = ({ route, navigation }) => {
   };
 
   const dadosCategoria = {
-    'Metal': {
+    Metal: {
       cor: "#F1F312",
       corTexto: "#18191F",
       imagem: require("../../img/lata.png"),
       angulo: [{ rotate: "0deg" }],
     },
-    'Papel': {
+    Papel: {
       cor: "#48ACF0",
       corTexto: "white",
       imagem: require("../../img/caixa.png"),
       angulo: [{ rotate: "0deg" }],
     },
-    'Plástico': {
+    Plástico: {
       cor: "#E53D00",
       corTexto: "white",
       imagem: require("../../img/garrafa_pet.png"),
       angulo: [{ rotate: "45deg" }],
     },
-    'Vidro': {
+    Vidro: {
       cor: "#08C49B",
       corTexto: "white",
       imagem: require("../../img/garrafa_vidro.png"),
@@ -76,31 +71,33 @@ const TelaDoProduto = ({ route, navigation }) => {
   };
 
   const categoriaDeQuemFezCadastro = {
-    'coletador': { textoBotao: "Coletar" },
-    'colaborador': { textoBotao: "Coletado" },
+    coletador: { textoBotao: "Coletar" },
+    colaborador: { textoBotao: "Coletado" },
   };
-
 
   /// variáveis a serem alteradas
   const categoria = dadosCategoria[coleta.categoria];
 
-  var disponivel = route.params['disponibilidade'] ? route.params['disponibilidade'] : "";
+  var disponivel = route.params["disponibilidade"]
+    ? route.params["disponibilidade"]
+    : "";
   var categoriaDoCadastrado = categoriaDeQuemFezCadastro[usuario];
 
-  const [ativo, setAtivo] = useState(disponivel === "Pendente" ? 1: 0); // variável para fazer a renderização condicional do botão
-  const [disposto, setDisposto] = useState(disponivel === "Pendente" ? 0: 1); // variável para fazer a renderização condicional
+  const [ativo, setAtivo] = useState(disponivel === "Pendente" ? 1 : 0); // variável para fazer a renderização condicional do botão
+  const [disposto, setDisposto] = useState(disponivel === "Pendente" ? 0 : 1); // variável para fazer a renderização condicional
 
   if (!fontsLoaded) {
     return <AppLoading />;
   } else
-
     return (
       // toda a tela do produto
       <View style={[styles.container, { backgroundColor: categoria.cor }]}>
         <View style={styles.areaBotaoVoltar}>
           <TouchableOpacity // botão "Voltar"
             activeOpacity={0.7}
-            onPress={()=>{navigation.goBack()}} // botão, ao ser apertado, volta para tela ListaColetas
+            onPress={() => {
+              navigation.goBack();
+            }} // botão, ao ser apertado, volta para tela ListaColetas
             style={styles.botaoVoltar}
           >
             <SvgComponent style={styles.imagemBotaoVoltar} />
@@ -128,9 +125,9 @@ const TelaDoProduto = ({ route, navigation }) => {
             <TouchableOpacity
               style={[styles.botaoBotao]}
               onPress={() => {
-                if(usuario==='colaborador'){
+                if (usuario === "colaborador") {
                   setAtivo(1);
-                }else{
+                } else {
                   setAtivo(1), setDisposto(0);
                 }
               }}

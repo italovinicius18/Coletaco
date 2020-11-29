@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { Text, TouchableOpacity, View, Keyboard, TextInput } from 'react-native';
-import { styles } from './styles';
-import Svg, { Path, Circle } from 'react-native-svg';
+import React, { useState, useEffect } from "react";
 import {
-	useFonts,
-	Montserrat_800ExtraBold,
-	Montserrat_400Regular,
-	Montserrat_500Medium,
+  Text,
+  TouchableOpacity,
+  View,
+  Keyboard,
+  TextInput,
+} from "react-native";
+import { styles } from "./styles";
+import Svg, { Path, Circle } from "react-native-svg";
+import {
+  useFonts,
+  Montserrat_800ExtraBold,
+  Montserrat_400Regular,
+  Montserrat_500Medium,
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
 
 //Componente de imagem da logo
 const LogoSvgComponent = (props) => {
-	return (
-		<Svg
+  return (
+    <Svg
       width={120}
       height={120}
       viewBox="0 0 120 120"
@@ -47,82 +53,92 @@ const LogoSvgComponent = (props) => {
         fill="#18191F"
       />
     </Svg>
-	);
+  );
 };
 
 const Login = ({ navigation }) => {
-	//EventListener do teclado
-	useEffect(() => {
-		Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
-		Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
-	}, []);
-	//Evento disparado quando o teclado aparece na tela
-	const _keyboardDidShow = () => {
-		onChangeKeyboard(true);
-	};
-	//Evento disparado quando o teclado some da tela
-	const _keyboardDidHide = () => {
-		onChangeKeyboard(false);
-	};
-	var [email, onChangeEmail] = useState(''); //Armazena o valor do input Email
-	var [senha, onChangeSenha] = useState(''); //Armazena o valor do input Senha
-	let [tecladoAtivo, onChangeKeyboard] = useState(false); //Armazena o valor da variável tecladoAtivo
-	//Fontes
-	let [fontsLoaded] = useFonts({
-		Montserrat_800ExtraBold,
-		Montserrat_500Medium,
-		Montserrat_400Regular
-	});
-	if (!fontsLoaded) { //Caso as fontes não estejam carregadas, a view ainda não será mostrada
-		return <AppLoading />;
-	}
-	else {
-		return (
-			<View style={styles.container}>
-				{/* Cabeçalho da página (logo + título) */}
-				<View style={styles.viewColetacoText}>
-					<LogoSvgComponent style={styles.logo} />
-					<Text style={styles.coletacoText}>
-						COLETAÇO
-					</Text>
-				</View>
+  //EventListener do teclado
+  useEffect(() => {
+    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+  }, []);
+  //Evento disparado quando o teclado aparece na tela
+  const _keyboardDidShow = () => {
+    onChangeKeyboard(true);
+  };
+  //Evento disparado quando o teclado some da tela
+  const _keyboardDidHide = () => {
+    onChangeKeyboard(false);
+  };
+  var [email, onChangeEmail] = useState(""); //Armazena o valor do input Email
+  var [senha, onChangeSenha] = useState(""); //Armazena o valor do input Senha
+  let [tecladoAtivo, onChangeKeyboard] = useState(false); //Armazena o valor da variável tecladoAtivo
+  //Fontes
+  let [fontsLoaded] = useFonts({
+    Montserrat_800ExtraBold,
+    Montserrat_500Medium,
+    Montserrat_400Regular,
+  });
+  if (!fontsLoaded) {
+    //Caso as fontes não estejam carregadas, a view ainda não será mostrada
+    return <AppLoading />;
+  } else {
+    return (
+      <View style={styles.container}>
+        {/* Cabeçalho da página (logo + título) */}
+        <View style={styles.viewColetacoText}>
+          <LogoSvgComponent style={styles.logo} />
+          <Text style={styles.coletacoText}>COLETAÇO</Text>
+        </View>
 
-				{/* Formulário de Login */}
-				<View style={styles.viewFormularioInfos}>
-					{/* Input Email */}
-					<TextInput
-						style={styles.inputEmail}
-						placeholder="E-mail"
-						onChangeText={email => onChangeEmail(email)}
-						value={email}
-					/>
-					{/* Input Senha */}
-					<TextInput
-						style={styles.inputSenha}
-						placeholder="Senha"
-						onChangeText={senha => onChangeSenha(senha)}
-						secureTextEntry={true}
-						value={senha}
-					/>
+        {/* Formulário de Login */}
+        <View style={styles.viewFormularioInfos}>
+          {/* Input Email */}
+          <TextInput
+            style={styles.inputEmail}
+            placeholder="E-mail"
+            onChangeText={(email) => onChangeEmail(email)}
+            value={email}
+          />
+          {/* Input Senha */}
+          <TextInput
+            style={styles.inputSenha}
+            placeholder="Senha"
+            onChangeText={(senha) => onChangeSenha(senha)}
+            secureTextEntry={true}
+            value={senha}
+          />
 
-					{/* Botão de Login */}
-					<TouchableOpacity style={styles.botaoLogin} onPress={() => {navigation.navigate('Navegador',{usuario: 'colaborador'})}}>
-						<Text style={styles.botaoLoginText}>Login</Text>
-					</TouchableOpacity>
-				</View>
+          {/* Botão de Login */}
+          <TouchableOpacity
+            style={styles.botaoLogin}
+            onPress={() => {
+              navigation.navigate("Navegador", { usuario: "colaborador" });
+            }}
+          >
+            <Text style={styles.botaoLoginText}>Login</Text>
+          </TouchableOpacity>
+        </View>
 
-				{/* Link para tela de cadastro */}
-				{
-					tecladoAtivo ? null : 
-					<View style={styles.viewCadastre} >
-						<Text style={styles.textCadastre}>
-							Você é novo aqui? <Text style={styles.linkCadastro} onPress={() => { navigation.navigate("Cadastro") }}>Cadastre-se</Text>
-						</Text>
-					</View>
-				}
-			</View>
-		);
-	}
-}
+        {/* Link para tela de cadastro */}
+        {tecladoAtivo ? null : (
+          <View style={styles.viewCadastre}>
+            <Text style={styles.textCadastre}>
+              Você é novo aqui?{" "}
+              <Text
+                style={styles.linkCadastro}
+                onPress={() => {
+                  navigation.navigate("Cadastro");
+                }}
+              >
+                Cadastre-se
+              </Text>
+            </Text>
+          </View>
+        )}
+      </View>
+    );
+  }
+};
 
 export default Login;

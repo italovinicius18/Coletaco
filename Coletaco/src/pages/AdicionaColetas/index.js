@@ -23,8 +23,8 @@ const BotaoVoltar = (props) => {
   );
 };
 
-const AdicionaColetas = ({ route,navigation }) => {
-  const {dadosCategoria} = route.params;
+const AdicionaColetas = ({ route, navigation }) => {
+  const { dadosCategoria } = route.params;
 
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,

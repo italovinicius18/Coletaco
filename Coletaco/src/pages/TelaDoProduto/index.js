@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { styles } from "./styles";
+
 import Svg, { Path } from "react-native-svg";
 import {
   useFonts,
@@ -10,11 +11,12 @@ import {
   Montserrat_500Medium,
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
+import {dadosCategoria} from '../data_example'
+
 
 const TelaDoProduto = ({ route, navigation }) => {
   const coleta = route.params.coleta;
   const usuario = route.params.usuario;
-  console.log(usuario);
 
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
@@ -41,33 +43,6 @@ const TelaDoProduto = ({ route, navigation }) => {
         />
       </Svg>
     );
-  };
-
-  const dadosCategoria = {
-    Metal: {
-      cor: "#F1F312",
-      corTexto: "#18191F",
-      imagem: require("../../img/lata.png"),
-      angulo: [{ rotate: "0deg" }],
-    },
-    Papel: {
-      cor: "#48ACF0",
-      corTexto: "white",
-      imagem: require("../../img/caixa.png"),
-      angulo: [{ rotate: "0deg" }],
-    },
-    Plástico: {
-      cor: "#E53D00",
-      corTexto: "white",
-      imagem: require("../../img/garrafa_pet.png"),
-      angulo: [{ rotate: "45deg" }],
-    },
-    Vidro: {
-      cor: "#08C49B",
-      corTexto: "white",
-      imagem: require("../../img/garrafa_vidro.png"),
-      angulo: [{ rotate: "45deg" }],
-    },
   };
 
   const categoriaDeQuemFezCadastro = {
@@ -115,8 +90,6 @@ const TelaDoProduto = ({ route, navigation }) => {
 
           <Text style={[styles.setCorPreta]}>
             {coleta.categoria}
-            {"\n"}
-            {coleta.local}
           </Text>
         </View>
 

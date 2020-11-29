@@ -12,33 +12,7 @@ import {
   Montserrat_500Medium,
   Montserrat_400Regular,
 } from "@expo-google-fonts/montserrat";
-
-const coletas = [
-  {
-    key: "0",
-    produto: "Latinha",
-    latitude: -15.8335066,
-    longitude: -47.955316,
-    nome: "Thorin",
-    categoria: "Metal",
-  },
-  {
-    key: "1",
-    produto: "Papelão",
-    latitude: -15.82154,
-    longitude: -47.988128,
-    nome: "Balin",
-    categoria: "Papel",
-  },
-  {
-    key: "2",
-    produto: "Garrafa de vidro",
-    latitude: -15.831255,
-    longitude: -48.015615,
-    nome: "Dwalin",
-    categoria: "Vidro",
-  },
-];
+import {HomeColetas} from '../data_example'
 
 const Home = (props) => {
   const navigation = useNavigation();
@@ -88,7 +62,7 @@ const Home = (props) => {
             longitudeDelta: 0.3105,
           }}
         >
-          {coletas.map((item) => (
+          {HomeColetas.map((item) => (
             <Marker
               key={item.key}
               coordinate={{

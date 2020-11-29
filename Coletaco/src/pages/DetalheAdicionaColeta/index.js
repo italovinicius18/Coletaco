@@ -169,9 +169,6 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
                 components: "country:br",
               }}
               styles={stylesBucaLocal}
-              isFocused={() => {
-                console.log("foco");
-              }}
               textInputProps={{
                 onChangeText: (text) => {
                   setLocal(text);

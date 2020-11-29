@@ -16,89 +16,8 @@ import {
   Montserrat_800ExtraBold,
   Montserrat_400Regular,
 } from "@expo-google-fonts/montserrat";
+import {dadosCategoria,Coletas} from '../data_example'
 
-// Cirei a lista de objetos abixo pra simular a Flatlist e já criar estilos para os itens
-const coletas = [
-  {
-    key: "0",
-    disponibilidade: "Pendente",
-    nome: "Latinha",
-    categoria: "Metal",
-    local: "Meu local",
-  },
-  {
-    key: "1",
-    disponibilidade: "Dísponível",
-    nome: "Papelão",
-    categoria: "Papel",
-    local: "Meu local",
-  },
-  {
-    key: "2",
-    disponibilidade: "Dísponível",
-    nome: "Garrafa PET",
-    categoria: "Plástico",
-    local: "Meu local",
-  },
-  {
-    key: "3",
-    disponibilidade: "Dísponível",
-    nome: "Garrafa de Vidro",
-    categoria: "Vidro",
-    local: "Meu local",
-  },
-  {
-    key: "4",
-    disponibilidade: "Pendente",
-    nome: "Papelão",
-    categoria: "Papel",
-    local: "Meu local",
-  },
-  {
-    key: "5",
-    disponibilidade: "Pendente",
-    nome: "Garrafa PET",
-    categoria: "Plástico",
-    local: "Meu local",
-  },
-  {
-    key: "6",
-    disponibilidade: "Pendente",
-    nome: "Garrafa de Vidro",
-    categoria: "Vidro",
-    local: "Meu local",
-  },
-];
-
-// Este objeto carrega as características de cada categoria, como cor de fundo, cor do texto, ícone específico
-// e o ângulo do ícone, o qual desejamos que a categoria Plástico e vidro ficasse em 45 graus
-
-const dadosCategoria = {
-  Metal: {
-    cor: "#F1F312",
-    corTexto: "#18191F",
-    imagem: require("../../img/lata.png"),
-    angulo: [{ rotate: "0deg" }],
-  },
-  Papel: {
-    cor: "#48ACF0",
-    corTexto: "white",
-    imagem: require("../../img/caixa.png"),
-    angulo: [{ rotate: "0deg" }],
-  },
-  Plástico: {
-    cor: "#E53D00",
-    corTexto: "white",
-    imagem: require("../../img/garrafa_pet.png"),
-    angulo: [{ rotate: "45deg" }],
-  },
-  Vidro: {
-    cor: "#08C49B",
-    corTexto: "white",
-    imagem: require("../../img/garrafa_vidro.png"),
-    angulo: [{ rotate: "45deg" }],
-  },
-};
 
 //Criei esta função pra ser a renderização de cada item,
 // o qual passo como parâmetro o item da lista de objetos a ser renderizado
@@ -138,7 +57,6 @@ const Coleta = (props) => {
         <Text
           style={[styles.descricaoDadosColeta, { color: categoria.corTexto }]}
         >
-          {coleta.local}
         </Text>
       </View>
       <View style={styles.areaImagemColeta}>
@@ -191,7 +109,7 @@ const ListaColetas = (props) => {
         <View style={styles.areaListaColetas}>
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={coletas}
+            data={Coletas}
             renderItem={({ item }) => (
               <Coleta coleta={item} usuario={props.usuario} />
             )}

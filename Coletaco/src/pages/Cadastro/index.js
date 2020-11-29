@@ -16,9 +16,6 @@ import {
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
 
-const printInfo = () => {
-  console.log();
-};
 const Cadastro = ({ navigation }) => {
   //EventListener do teclado
   useEffect(() => {

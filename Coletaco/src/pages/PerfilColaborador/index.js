@@ -70,7 +70,7 @@ const PerfilColaborador = ({ navigation }) => {
       <View style={styles.container}>
         {/* Definição da imagem do perfil do Colaborador */}
         <View style={styles.imagemPerfil}>
-          <Image source={require("../img/Colaborador.png")} />
+          <Image source={require("../../img/Colaborador.png")} />
         </View>
 
         {/* Gerando o nome e o gráfico das colaborções que a pessoa vez */}

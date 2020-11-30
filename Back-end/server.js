@@ -9,24 +9,21 @@ app.use(cors())
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
 
-const sql = require('mssql');
-
-const config = {
-  user: '',
-  password: '',
-  server: '',
-  database: '',
-  "options": {
-    "encrypt": true,
-    "enableArithAbort": true
-  },
+const sql = require('mssql')
+ 
+main = async () => {
+    try {
+        // make sure that any items are correctly URL encoded in the connection string
+        await sql.connect('')
+        const result = await sql.query`select * from mds_Situacao`
+        console.log("oi")
+        console.log(result)
+    } catch (err) {
+        console.log(err)
+    }
 }
 
-const pool = new sql.ConnectionPool(config)
-
-pool.connect(err => {
-  console.log(err)
-})
+main();
 
 app.get('/hello', (req, res) => {
   res.send({express: 'Hello From Express'});

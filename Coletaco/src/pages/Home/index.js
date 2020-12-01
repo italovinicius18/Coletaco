@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, ActivityIndicator } from "react-native";
+import React, { useState } from "react";
+import { View, TextInput, Button } from "react-native";
 import { styles } from "./styles";
 
-import { callAPI } from "../../api/api";
+import { cadastro } from "../../api/api";
 
 const Home = () => {
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    callAPI()
-      .then((json) => setData(json.express))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-  }, []);
+  const [nome, setNome] = useState();
 
   return (
     <View style={styles.container}>
-      {isLoading ? <ActivityIndicator /> : <Text> {data} </Text>}
+      <TextInput
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        onChangeText={text => setNome(text)}
+        value={nome}
+      />
+      <Button
+        title="Submit"
+        color="#841584"
+        onPress={()=>cadastro({nome: nome})}
+      />
     </View>
   );
 };

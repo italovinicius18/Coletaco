@@ -1,10 +1,23 @@
-export const callAPI = async () => {
-    let url = 'http://localhost:5000/hello';
-    try {
-        let res = await fetch(url);
-        let response = await res.json();
-        return response
-    } catch (error) {
-        console.log(error);
-    }
+const axios = require('axios')
+const qs = require('qs')
+
+const config = {
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+}
+
+// Dados precisa ser um objeto
+
+export async function cadastro(dados) {
+
+    const url = 'http://192.168.0.8:5000/cadastro'
+
+    axios.post(url, qs.stringify(dados), config)
+        .then((result) => {
+            console.log(result)
+        })
+        .catch((err) => {
+            console.log("Erro de conexão")
+        })
 }

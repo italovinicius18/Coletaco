@@ -138,12 +138,10 @@ const Login = ({ navigation }) => {
                     Alert.alert("Usuário ou senha incorreta, tente novamente");
                     return;
                   } else {
-                    console.log(res)
-                    navigation.navigate("Navegador", { usuario: res.TipoPerfil === 0 ? 'catador' : 'colaborador' });
+                    navigation.navigate("Navegador", { usuario: res.TipoPerfil === 0 ? 'catador' : 'colaborador' , dadosUsuario: res});
                   }
                 })
                 .catch((err) => {
-                  console.log(err)
                   Alert.alert("Erro de conexão, tente novamente");
                   return;
                 });

@@ -11,6 +11,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 const Navegador = ({ route, navigation }) => {
   const usuario = route.params.usuario;
+  const dadosUsuario = route.params.dadosUsuario
 
   return (
     <Tab.Navigator
@@ -21,7 +22,7 @@ const Navegador = ({ route, navigation }) => {
     >
       <Tab.Screen
         name="Home"
-        children={() => <Home usuario={usuario} />}
+        children={() => <Home usuario={usuario} dadosUsuario={dadosUsuario}/>}
         options={{
           tabBarLabel: "Mapa",
           tabBarColor: "#fff",

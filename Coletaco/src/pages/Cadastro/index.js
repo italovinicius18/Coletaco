@@ -5,6 +5,7 @@ import {
   View,
   Keyboard,
   TextInput,
+  Alert,
 } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { styles } from "./styles";
@@ -15,6 +16,10 @@ import {
   Montserrat_500Medium,
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
+const axios = require('axios')
+const qs = require('qs')
+
+import {url,config} from '../../api/api'
 
 const Cadastro = ({ navigation }) => {
   //EventListener do teclado
@@ -104,10 +109,32 @@ const Cadastro = ({ navigation }) => {
           <TouchableOpacity
             style={styles.botaoCadastro}
             onPress={() => {
-              console.log(
-                nomeCompleto + "; " + email + "; " + senha + "; " + tipoPerfil
-              ),
-                navigation.navigate("Navegador", { usuario: "coletador" });
+              if (nomeCompleto === "" || email === ""  || senha === ''){
+                Alert.alert("Por favor, preencha os dados corretamente")
+                return
+              }
+              let dados = {
+                nome: nomeCompleto,
+                email: email,
+                senha: senha,
+                tipoPerfil: tipoPerfil,
+              }            
+              
+              console.log(url+'cadastro')
+              axios.post(url+'cadastro', qs.stringify(dados), config)
+                  .then((result) => {
+                      let response = result
+                      if (response.data === "Adicionado"){
+                        navigation.navigate("Login");
+                      }else{
+                        Alert.alert("Não conseguimos te cadastar, tente novamente")
+                        return
+                      }
+                  })
+                  .catch((err) => {
+                      Alert.alert("Não conseguimos acessar o servidor, verifique sua conexão e tente novamente")
+                  })
+              
             }}
           >
             <Text style={styles.botaoCadastroText}>Cadastre-se</Text>

@@ -3,6 +3,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Alert,
   Keyboard,
   TextInput,
 } from "react-native";
@@ -15,6 +16,10 @@ import {
   Montserrat_500Medium,
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
+
+const axios = require("axios");
+const qs = require("qs");
+import { url, config } from "../../api/api";
 
 //Componente de imagem da logo
 const LogoSvgComponent = (props) => {
@@ -73,12 +78,14 @@ const Login = ({ navigation }) => {
   var [email, onChangeEmail] = useState(""); //Armazena o valor do input Email
   var [senha, onChangeSenha] = useState(""); //Armazena o valor do input Senha
   let [tecladoAtivo, onChangeKeyboard] = useState(false); //Armazena o valor da variável tecladoAtivo
+
   //Fontes
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
     Montserrat_500Medium,
     Montserrat_400Regular,
   });
+
   if (!fontsLoaded) {
     //Caso as fontes não estejam carregadas, a view ainda não será mostrada
     return <AppLoading />;
@@ -113,7 +120,33 @@ const Login = ({ navigation }) => {
           <TouchableOpacity
             style={styles.botaoLogin}
             onPress={() => {
-              navigation.navigate("Navegador", { usuario: "colaborador" });
+              if (email === "" || senha === "") {
+                Alert.alert("Por favor, preencha os dados corretamente");
+                return;
+              }
+
+              let dados = {
+                email: email,
+                senha: senha,
+              };
+
+              axios
+                .post(url + "login", qs.stringify(dados), config)
+                .then((result) => {
+                  let res = result.data;
+                  if (res === "") {
+                    Alert.alert("Usuário ou senha incorreta, tente novamente");
+                    return;
+                  } else {
+                    console.log(res)
+                    navigation.navigate("Navegador", { usuario: res.TipoPerfil === 0 ? 'catador' : 'colaborador' });
+                  }
+                })
+                .catch((err) => {
+                  console.log(err)
+                  Alert.alert("Erro de conexão, tente novamente");
+                  return;
+                });
             }}
           >
             <Text style={styles.botaoLoginText}>Login</Text>

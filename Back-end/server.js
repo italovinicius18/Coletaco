@@ -1,21 +1,23 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+require('dotenv/config');
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
 const port = process.env.PORT || 5000;
 
 const sql = require("mssql");
 
 const config = {
-  user: "",
-  password: "",
-  server: "",
-  database: "",
+  user: "saAlvaroLG",
+  password: process.env.SECRET_API,
+  server: "alvaro2202.database.windows.net",
+  database: "MDS-Coletaco",
   options: {
     encrypt: true,
     enableArithAbort: true,

@@ -35,7 +35,7 @@ const Navegador = ({ route, navigation }) => {
       {usuario === "coletador" ? null : (
         <Tab.Screen
           name="ListaColetas"
-          children={() => <ListaColetas usuario={usuario} />}
+          children={() => <ListaColetas dadosUsuario={dadosUsuario} />}
           options={{
             tabBarLabel: "Coletas",
             tabBarColor: "#ECECEC",

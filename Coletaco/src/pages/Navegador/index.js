@@ -61,7 +61,7 @@ const Navegador = ({ route, navigation }) => {
       ) : (
         <Tab.Screen
           name="PerfilColaborador"
-          children={() => <PerfilColaborador />}
+          children={() => <PerfilColaborador dadosUsuario={dadosUsuario}/>}
           options={{
             tabBarLabel: "Perfil",
             tabBarColor: "#EFEFEF",

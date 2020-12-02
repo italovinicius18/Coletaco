@@ -17,7 +17,7 @@ import {
   Montserrat_800ExtraBold,
   Montserrat_400Regular,
 } from "@expo-google-fonts/montserrat";
-import {dadosCategoria,Coletas} from '../data_example'
+import {dadosCategoria} from '../data_example'
 
 const axios = require("axios");
 const qs = require("qs");

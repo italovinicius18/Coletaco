@@ -3,25 +3,29 @@
 // Arquivo necessario para fazer renderização de cores
 
 export const dadosCategoria = {
-  Metal: {
+  1: {
+    categoria: 'Metal',
     cor: "#F1F312",
     corTexto: "#18191F",
     imagem: require("../img/lata.png"),
     angulo: [{ rotate: "0deg" }],
   },
-  Papel: {
+  2: {
+    categoria: 'Papel',
     cor: "#48ACF0",
     corTexto: "white",
     imagem: require("../img/caixa.png"),
     angulo: [{ rotate: "0deg" }],
   },
-  Plástico: {
+  3: {
+    categoria: 'Plástico',
     cor: "#E53D00",
     corTexto: "white",
     imagem: require("../img/garrafa_pet.png"),
     angulo: [{ rotate: "45deg" }],
   },
-  Vidro: {
+  4: {
+    categoria: 'Vidro',
     cor: "#08C49B",
     corTexto: "white",
     imagem: require("../img/garrafa_vidro.png"),

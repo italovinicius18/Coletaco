@@ -16,7 +16,7 @@ import {dadosCategoria} from '../data_example'
 
 const TelaDoProduto = ({ route, navigation }) => {
   const coleta = route.params.coleta;
-  const usuario = route.params.usuario;
+  const dadosUsuario = route.params.dadosUsuario;
 
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
@@ -46,20 +46,18 @@ const TelaDoProduto = ({ route, navigation }) => {
   };
 
   const categoriaDeQuemFezCadastro = {
-    coletador: { textoBotao: "Coletar" },
-    colaborador: { textoBotao: "Coletado" },
+    0: { textoBotao: "Coletar" },
+    1: { textoBotao: "Coletado" },
   };
 
   /// variáveis a serem alteradas
-  const categoria = dadosCategoria[coleta.categoria];
+  const categoria = dadosCategoria[coleta.IdCategoria];
 
-  var disponivel = route.params["disponibilidade"]
-    ? route.params["disponibilidade"]
-    : "";
-  var categoriaDoCadastrado = categoriaDeQuemFezCadastro[usuario];
+  var disponivel = coleta.IdSituacao;
+  var categoriaDoCadastrado = categoriaDeQuemFezCadastro[dadosUsuario.TipoPerfil];
 
-  const [ativo, setAtivo] = useState(disponivel === "Pendente" ? 1 : 0); // variável para fazer a renderização condicional do botão
-  const [disposto, setDisposto] = useState(disponivel === "Pendente" ? 0 : 1); // variável para fazer a renderização condicional
+  const [ativo, setAtivo] = useState(disponivel === 2 ? 1 : 0); // variável para fazer a renderização condicional do botão
+  const [disposto, setDisposto] = useState(disponivel === 2 ? 0 : 1); // variável para fazer a renderização condicional
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -86,10 +84,10 @@ const TelaDoProduto = ({ route, navigation }) => {
           />
         </View>
         <View style={styles.areaDescricao}>
-          <Text style={[styles.descricaoColeta]}>{coleta.nome}</Text>
+          <Text style={[styles.descricaoColeta]}>{coleta.Nome}</Text>
 
           <Text style={[styles.setCorPreta]}>
-            {coleta.categoria}
+            {categoria.categoria}
           </Text>
         </View>
 
@@ -117,16 +115,16 @@ const TelaDoProduto = ({ route, navigation }) => {
             <MapView
               style={styles.mapEstilo}
               initialRegion={{
-                latitude: coleta.latitude,
-                longitude: coleta.longitude,
+                latitude: coleta.Latitude,
+                longitude: coleta.Longitude,
                 latitudeDelta: 0.561,
                 longitudeDelta: 0.3105,
               }}
             >
               <Marker
                 coordinate={{
-                  latitude: coleta.latitude,
-                  longitude: coleta.longitude,
+                  latitude: coleta.Latitude,
+                  longitude: coleta.Longitude,
                 }}
                 title={categoria.nome}
                 description="Park Shopping"

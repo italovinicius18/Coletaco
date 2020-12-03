@@ -105,7 +105,7 @@ const Home = (props) => {
                   onPress={() =>
                     navigation.navigate("TelaDoProduto", {
                       coleta: item,
-                      usuario: usuario,
+                      dadosUsuario: dadosUsuario,
                     })
                   }
                 >

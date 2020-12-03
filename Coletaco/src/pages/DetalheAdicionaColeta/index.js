@@ -6,6 +6,7 @@ import {
   TextInput,
   Switch,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { styles, stylesBucaLocal } from "./styles";
 
@@ -20,7 +21,11 @@ import {
   Montserrat_500Medium,
 } from "@expo-google-fonts/montserrat";
 
-import { key } from "../../api/api";
+const axios = require("axios");
+const qs = require("qs");
+import { url, config } from "../../api/api";
+
+import { GOOGLE_API_KEY } from "../../api/GOOGLE_API_KEY";
 
 // Componente svg da imagem que está no botão voltar
 
@@ -46,59 +51,54 @@ const BotaoVoltar = (props) => {
 };
 
 // Componente principal renderizado
+const returnLatLong = (data, name) => {
+  var coords = null;
+  if (name == "details") {
+    let dataCoords = data["details"]["geometry"]["location"];
+    coords = {
+      latitude: dataCoords["lat"],
+      longitude: dataCoords["lng"],
+    };
+  }
+  return coords;
+};
 
 const DetalheAdicionaColetas = ({ route, navigation }) => {
-  const { categoria } = route.params; // Armazena a categoria selecionada da página anterior
-  const [local, setLocal] = useState(""); // Armazena a string de busca da localização
+  const categoria = route.params.categoria; // Armazena a categoria selecionada da página anterior
+  const dadosUsuario = route.params.dadosUsuario;
   const [localizacao, setLocalizacao] = useState(""); // Armazena um objeto {latitude, longitude}
   const [dados, setDados] = useState({
     // Armazena todos os dados que serão enviados ao banco para poder registrar uma coleta
     categoria: categoria,
     coletaNome: "",
     local: "",
+    idUsuario: dadosUsuario.Id,
   });
   const [isEnabled, setIsEnabled] = useState(false); // Verifica se a switch de acessar meu local está ativada
+  const [isLoading, setLoading] = useState(false);
 
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
     Montserrat_500Medium,
     Montserrat_400Regular,
   });
-
   // Função assíncrona para acessar a localização atual do usuário, utilizei o pacote Location do prórpio expo
-  acessarLocalizacaoAtual = () => {
-    (async () => {
-      let { status } = await Location.requestPermissionsAsync();
-      if (status !== "granted") {
-        Alert.alert(
-          "Houve erro para acessar sua localização, por favor tente novamente"
-        );
-      }
+  // acessarLocalizacaoAtual = () => {
+  //   (async () => {
+  //     let { status } = await Location.requestPermissionsAsync();
+  //     if (status !== "granted") {
+  //       Alert.alert(
+  //         "Houve erro para acessar sua localização, por favor tente novamente"
+  //       );
+  //     }
 
-      let localizacao_atual = await Location.getCurrentPositionAsync({});
-      setLocalizacao(returnLatLong(localizacao_atual, "coords"));
-    })();
-  };
+  //     let localizacao_atual = await Location.getCurrentPositionAsync({});
+  //     setLocalizacao(returnLatLong(localizacao_atual, "coords"));
+  //   })();
+  // };
 
   // Função que verifica se a pessoa escreveu o local ou acessou sua localização atual, ela retorna um objeto com estas coordenadas
 
-  returnLatLong = (data, name) => {
-    var coords = null;
-    if (name == "details") {
-      let dataCoords = data["details"]["geometry"]["location"];
-      coords = {
-        latitude: dataCoords["lat"],
-        longitude: dataCoords["lng"],
-      };
-    } else if (name == "coords") {
-      let dataCoords = data["coords"];
-      coords = {
-        latitude: dataCoords["latitude"],
-        longitude: dataCoords["longitude"],
-      };
-    }
-    return coords;
-  };
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -138,6 +138,7 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
                 categoria: categoria,
                 nomeMaterial: material,
                 local: localizacao,
+                idUsuario: dadosUsuario.Id,
               })
             }
             maxLength={25}
@@ -161,22 +162,18 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
                     { data: data, details: details },
                     "details"
                   ),
+                  idUsuario: dadosUsuario.Id,
                 });
               }}
               query={{
-                key: key,
+                key: GOOGLE_API_KEY,
                 language: "pt-BR",
                 components: "country:br",
               }}
               styles={stylesBucaLocal}
-              textInputProps={{
-                onChangeText: (text) => {
-                  setLocal(text);
-                },
-              }}
             />
           )}
-
+          {/* 
           {local !== "" ? null : ( // Se o campo de busca de local estiver preenchido, p switch de acessar meu local é desativado, facilitado na visão dos locais listados
             <View style={styles.areaSelecionarMeuLocal}>
               <View style={styles.areaTextoSelecionarMeuLocal}>
@@ -200,29 +197,57 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
                       categoria: categoria,
                       nomeMaterial: dados.nomeMaterial,
                       local: localizacao,
+                      idUsuario: dadosUsuario.Id,
                     });
                   }}
                   value={isEnabled}
                 />
               </View>
             </View>
-          )}
+          )} */}
 
-          <TouchableOpacity
-            style={styles.botaoConfirmar}
-            onPress={() => {
-              if (dados["coletaNome"] !== "" && dados["local"] !== "") {
-                // Verifico se nenhum campo está vazio, se estiver eu alerto o usuário,
-                console.log(dados); // se não, eu imprimos todos os dados registrados;
-                Alert.alert("Produto adicionado com sucesso !");
-                navigation.navigate("ListaColetas");
-              } else {
-                Alert.alert("Por favor, revise os dados");
-              }
-            }}
-          >
-            <Text style={styles.textoBotaoConfirmar}>Cadastrar material</Text>
-          </TouchableOpacity>
+          {isLoading ? (
+            <ActivityIndicator style={{marginBottom: '5%'}} size="large" color="#00ff00" />
+          ) : (
+            <TouchableOpacity
+              style={styles.botaoConfirmar}
+              disabled={isLoading ? true : false}
+              onPress={() => {
+                if (dados["coletaNome"] !== "" && dados["local"] !== "") {
+                  // Verifico se nenhum campo está vazio, se estiver eu alerto o usuário,
+
+                  setLoading(true);
+
+                  axios
+                    .post(url + "adicionaColeta", qs.stringify(dados), config)
+                    .then((result) => {
+                      let response = result;
+                      if (response.data === "Adicionado") {
+                        Alert.alert("Produto adicionado com sucesso !");
+                        navigation.navigate("Navegador", {
+                          dadosUsuario: dadosUsuario,
+                        });
+                      } else {
+                        Alert.alert(
+                          "Não conseguimos adicionar a coleta, tente novamente"
+                        );
+                        return;
+                      }
+                    })
+                    .catch((err) => {
+                      Alert.alert(
+                        "Não conseguimos acessar o servidor, verifique sua conexão e tente novamente"
+                      );
+                    })
+                    .finally(() => setLoading(false));
+                } else {
+                  Alert.alert("Por favor, revise os dados");
+                }
+              }}
+            >
+              <Text style={styles.textoBotaoConfirmar}>Cadastrar material</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     );

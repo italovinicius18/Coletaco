@@ -29,6 +29,7 @@ import { url, config } from "../../api/api";
 const Coleta = (props) => {
   const navigation = useNavigation();
   const coleta = props.coleta
+  const dadosUsuario = props.dadosUsuario
 
   var categoria = dadosCategoria[coleta.IdCategoria];
   return (
@@ -36,7 +37,7 @@ const Coleta = (props) => {
       onPress={() => {
         navigation.navigate("TelaDoProduto", {
           coleta: coleta,
-          usuario: props.usuario,
+          dadosUsuario: dadosUsuario,
         });
       }}
       style={({ pressed }) => [
@@ -94,7 +95,7 @@ const BotaoAdicionarColeta = (props) => {
 
 const ListaColetas = (props) => {
   const navigation = useNavigation();
-  const dadosUsuario = props.dadosUsuario
+  const dadosUsuario = props.dadosUsuario;
   const [coletas, setColetas] = useState([]);
   const [temColetas, setTemColetas] = useState(false);
   const [isLoading, setLoading] = useState(true);
@@ -138,9 +139,9 @@ const ListaColetas = (props) => {
               <FlatList
                 showsVerticalScrollIndicator={false}
                 data={coletas}
-                keyExtractor={(item, index) => item.IdCategoria.toString()}
+                keyExtractor={(item, index) => item.Id.toString()}
                 renderItem={({ item }) => (
-                  <Coleta coleta={item} usuario={props.usuario} />
+                  <Coleta coleta={item} dadosUsuario={dadosUsuario} />
                 )}
               />
             ) : (
@@ -157,6 +158,7 @@ const ListaColetas = (props) => {
           onPress={() => {
             navigation.navigate("AdicionaColetas", {
               dadosCategoria: dadosCategoria,
+              dadosUsuario: dadosUsuario
             });
           }}
           style={styles.botaoAdicionaColeta}

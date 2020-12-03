@@ -32,7 +32,7 @@ const Navegador = ({ route, navigation }) => {
         }}
       />
 
-      {usuario === "coletador" ? null : (
+      {dadosUsuario.TipoPerfil === 0 ? null : (
         <Tab.Screen
           name="ListaColetas"
           children={() => <ListaColetas dadosUsuario={dadosUsuario} />}
@@ -46,7 +46,7 @@ const Navegador = ({ route, navigation }) => {
         />
       )}
 
-      {usuario === "coletador" ? (
+      {dadosUsuario.TipoPerfil === 0 ? (
         <Tab.Screen
           name="PerfilColetador"
           children={() => <PerfilColetador />}

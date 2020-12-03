@@ -120,7 +120,6 @@ const Cadastro = ({ navigation }) => {
                 tipoPerfil: tipoPerfil,
               }            
               
-              console.log(url+'cadastro')
               axios.post(url+'cadastro', qs.stringify(dados), config)
                   .then((result) => {
                       let response = result

@@ -89,7 +89,6 @@ const PerfilColaborador = (props) => {
       ]);
     })
     .catch((err) => {
-      console.log(err);
       Alert.alert("Erro de conexão, tente novamente");
       return;
     })

@@ -24,7 +24,8 @@ const BotaoVoltar = (props) => {
 };
 
 const AdicionaColetas = ({ route, navigation }) => {
-  const { dadosCategoria } = route.params;
+  const dadosCategoria = route.params.dadosCategoria;
+  const dadosUsuario = route.params.dadosUsuario;
 
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
@@ -64,40 +65,42 @@ const AdicionaColetas = ({ route, navigation }) => {
             <TouchableOpacity
               onPress={() => {
                 navigation.push("DetalheAdicionaColeta", {
-                  categoria: "Metal",
+                  categoria: 1,
+                  dadosUsuario: dadosUsuario,
                 });
               }}
               style={[
                 styles.opcoesCategorias,
-                { backgroundColor: dadosCategoria["Metal"].cor },
+                { backgroundColor: dadosCategoria[1].cor },
               ]}
             >
               <Image
                 style={[
                   styles.imagemColeta,
-                  { transform: dadosCategoria["Metal"].angulo },
+                  { transform: dadosCategoria[1].angulo },
                 ]}
-                source={dadosCategoria["Metal"].imagem}
+                source={dadosCategoria[1].imagem}
               />
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => {
                 navigation.push("DetalheAdicionaColeta", {
-                  categoria: "Papel",
+                  categoria: 2,
+                  dadosUsuario: dadosUsuario,
                 });
               }}
               style={[
                 styles.opcoesCategorias,
-                { backgroundColor: dadosCategoria["Papel"].cor },
+                { backgroundColor: dadosCategoria[2].cor },
               ]}
             >
               <Image
                 style={[
                   styles.imagemColeta,
-                  { transform: dadosCategoria["Papel"].angulo },
+                  { transform: dadosCategoria[2].angulo },
                 ]}
-                source={dadosCategoria["Papel"].imagem}
+                source={dadosCategoria[2].imagem}
               />
             </TouchableOpacity>
           </View>
@@ -106,40 +109,42 @@ const AdicionaColetas = ({ route, navigation }) => {
             <TouchableOpacity
               onPress={() => {
                 navigation.push("DetalheAdicionaColeta", {
-                  categoria: "Plástico",
+                  categoria: 3,
+                  dadosUsuario: dadosUsuario,
                 });
               }}
               style={[
                 styles.opcoesCategorias,
-                { backgroundColor: dadosCategoria["Plástico"].cor },
+                { backgroundColor: dadosCategoria[3].cor },
               ]}
             >
               <Image
                 style={[
                   styles.imagemColeta,
-                  { transform: dadosCategoria["Plástico"].angulo },
+                  { transform: dadosCategoria[3].angulo },
                 ]}
-                source={dadosCategoria["Plástico"].imagem}
+                source={dadosCategoria[3].imagem}
               />
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => {
                 navigation.push("DetalheAdicionaColeta", {
-                  categoria: "Vidro",
+                  categoria: 4,
+                  dadosUsuario: dadosUsuario,
                 });
               }}
               style={[
                 styles.opcoesCategorias,
-                { backgroundColor: dadosCategoria["Vidro"].cor },
+                { backgroundColor: dadosCategoria[4].cor },
               ]}
             >
               <Image
                 style={[
                   styles.imagemColeta,
-                  { transform: dadosCategoria["Vidro"].angulo },
+                  { transform: dadosCategoria[4].angulo },
                 ]}
-                source={dadosCategoria["Vidro"].imagem}
+                source={dadosCategoria[4].imagem}
               />
             </TouchableOpacity>
           </View>

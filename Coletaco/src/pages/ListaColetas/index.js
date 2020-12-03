@@ -145,7 +145,7 @@ const ListaColetas = (props) => {
                 )}
               />
             ) : (
-              <Text>Não existem coletas cadastradas</Text>
+              <Text style={{marginHorizontal: "2%",paddingHorizontal: "4%",}}>Não existem coletas cadastradas</Text>
             )
           )
           }

@@ -4,7 +4,6 @@ import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 
 import MapView, { Marker, Callout } from "react-native-maps";
-import * as Location from "expo-location"; // Pacote utilizado para acessar alocalização atual do usuário
 import { AppLoading } from "expo";
 import {
   useFonts,
@@ -50,27 +49,6 @@ const Home = (props) => {
 
   // Função assíncrona para acessar a localização atual do usuário, utilizei o pacote Location do prórpio expo
 
-  useEffect(() => {
-    const acessarLocalizaçãoAtual = async () => {
-      let { status } = await Location.requestPermissionsAsync();
-      if (status !== "granted") {
-        Alert.alert(
-          "Houve erro para acessar sua localização, por favor tente novamente"
-        );
-      }
-
-      let localizacao_atual = await Location.getCurrentPositionAsync({});
-
-      let dataCoords = localizacao_atual["coords"];
-      let coords = {
-        latitude: dataCoords["latitude"],
-        longitude: dataCoords["longitude"],
-      };
-      setLocalizacao(coords);
-    };
-    acessarLocalizaçãoAtual();
-  }, []);
-
   if (!fontsLoaded) {
     return <AppLoading />;
   } else
@@ -82,12 +60,8 @@ const Home = (props) => {
           <MapView
             style={styles.mapStyle}
             initialRegion={{
-              latitude: localizacao.latitude
-                ? localizacao.latitude
-                : -15.831255,
-              longitude: localizacao.latitude
-                ? localizacao.latitude
-                : -48.015615,
+              latitude: -15.831255,
+              longitude: -48.015615,
               latitudeDelta: 0.561,
               longitudeDelta: 0.3105,
             }}

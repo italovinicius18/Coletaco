@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { styles } from "./styles";
 
@@ -11,8 +17,11 @@ import {
   Montserrat_500Medium,
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
-import {dadosCategoria} from '../data_example'
+import { dadosCategoria } from "../data_example";
 
+const axios = require("axios");
+const qs = require("qs");
+import { url, config } from "../../api/api";
 
 const TelaDoProduto = ({ route, navigation }) => {
   const coleta = route.params.coleta;
@@ -45,19 +54,12 @@ const TelaDoProduto = ({ route, navigation }) => {
     );
   };
 
-  const categoriaDeQuemFezCadastro = {
-    0: { textoBotao: "Coletar" },
-    1: { textoBotao: "Coletado" },
-  };
-
   /// variáveis a serem alteradas
   const categoria = dadosCategoria[coleta.IdCategoria];
 
-  var disponivel = coleta.IdSituacao;
-  var categoriaDoCadastrado = categoriaDeQuemFezCadastro[dadosUsuario.TipoPerfil];
-
-  const [ativo, setAtivo] = useState(disponivel === 2 ? 1 : 0); // variável para fazer a renderização condicional do botão
-  const [disposto, setDisposto] = useState(disponivel === 2 ? 0 : 1); // variável para fazer a renderização condicional
+  const [mostrarMapa, setMostrarMapa] = useState(false);
+  const [confirmaColeta, setConfirmaColeta] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -86,31 +88,56 @@ const TelaDoProduto = ({ route, navigation }) => {
         <View style={styles.areaDescricao}>
           <Text style={[styles.descricaoColeta]}>{coleta.Nome}</Text>
 
-          <Text style={[styles.setCorPreta]}>
-            {categoria.categoria}
-          </Text>
+          <Text style={[styles.setCorPreta]}>{categoria.categoria}</Text>
         </View>
 
-        {ativo ? null : ( // renderização condicional
+        {isLoading ? (
+          <View style={styles.areaBotao}>
+            <ActivityIndicator size="large" color="#000" />
+          </View>
+        ) : ((dadosUsuario.TipoPerfil === 1 && coleta.IdSituacao === 2) ||
+          (dadosUsuario.TipoPerfil === 0 && coleta.IdSituacao === 1)) && !confirmaColeta && !mostrarMapa ? (
           <View style={styles.areaBotao}>
             <TouchableOpacity
               style={[styles.botaoBotao]}
               onPress={() => {
-                if (usuario === "colaborador") {
-                  setAtivo(1);
-                } else {
-                  setAtivo(1), setDisposto(0);
-                }
+                setLoading(true);
+                axios
+                  .post(
+                    url + "alteraSituacaoColeta",
+                    qs.stringify({IdUsuario: dadosUsuario.Id,IdColeta: coleta.Id,...dadosUsuario, ...coleta}),
+                    config
+                  )
+                  .then((result) => {
+                    let response = result
+                      if (response.data !== "Alterado"){
+                        Alert.alert("Não conseguimos te cadastar, tente novamente")
+                        return
+                      }
+                  })
+                  .catch((err) => {
+                    Alert.alert("Erro de conexão, tente novamente");
+                    return;
+                  })
+                  .finally(() => {
+                    setLoading(false)
+                    if(dadosUsuario.TipoPerfil === 0){
+                      setMostrarMapa(true)
+                    }else{
+                      setConfirmaColeta(true)
+                    }
+                  });
               }}
             >
               <Text style={[styles.setCorBranca]}>
-                {categoriaDoCadastrado.textoBotao}
+                {dadosUsuario.TipoPerfil === 0 ? "Coletar" : "Confirmar coleta"}
               </Text>
             </TouchableOpacity>
           </View>
-        )}
+        ) : null}
 
-        {disposto ? null : ( // renderização condicional
+        {(dadosUsuario.TipoPerfil === 0 && coleta.IdSituacao === 2) ||
+        mostrarMapa ? (
           <View style={styles.areaMapa}>
             <MapView
               style={styles.mapEstilo}
@@ -131,7 +158,7 @@ const TelaDoProduto = ({ route, navigation }) => {
               ></Marker>
             </MapView>
           </View>
-        )}
+        ) : null}
       </View>
     );
 };

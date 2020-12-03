@@ -111,8 +111,8 @@ const PerfilColetador = (props) => {
           {isLoading ? (
             <ActivityIndicator size="large" color="#00ff00"/>
           ) : (
-            (pendentes === []) ? (
-              <Text>Você naõ possui coletas pendentes</Text>
+            (pendentes.length <= 0) ? (
+              <Text style={{marginHorizontal: "2%"}} >Você naõ possui coletas pendentes</Text>
             ) : (
               <FlatList
                 data={pendentes}

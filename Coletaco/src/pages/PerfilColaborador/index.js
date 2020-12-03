@@ -17,12 +17,10 @@ import {
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
 import { PieChart } from "react-native-chart-kit";
-import { dadosCategoria } from "../data_example";
 
 const axios = require("axios");
 const qs = require("qs");
 import { url, config } from "../../api/api";
-import { parse } from "react-native-svg";
 
 // Configuração do PieChart
 const chartConfig = {
@@ -124,18 +122,18 @@ const PerfilColaborador = (props) => {
               color="#69D669"
             />
           ) : (
-            <PieChart
-              style={{ top: "10%", alignSelf: "center" }}
-              data={dadosColaboracao}
-              accessor="colaboracao"
-              width={Dimensions.get("window").width}
-              height={230}
-              chartConfig={chartConfig}
-              backgroundColor="transparent"
-              paddingTop="200"
-              paddingLeft="20"
-            />
-          )}
+              <PieChart
+                style={{ top: "10%", alignSelf: "center" }}
+                data={dadosColaboracao}
+                accessor="colaboracao"
+                width={Dimensions.get("window").width}
+                height={230}
+                chartConfig={chartConfig}
+                backgroundColor="transparent"
+                paddingTop="200"
+                paddingLeft="20"
+              />
+            )}
         </View>
       </View>
     );

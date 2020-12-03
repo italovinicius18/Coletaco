@@ -17,7 +17,6 @@ import {
   Montserrat_500Medium,
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
-import { dadosCategoria, PerfilColetadorColetas } from "../data_example";
 
 const axios = require("axios");
 const qs = require("qs");
@@ -67,7 +66,7 @@ const PerfilColetador = (props) => {
   const dadosUsuario = props.dadosUsuario;
   const [pendentes, setPendentes] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  
+
   axios
     .post(url + "pegaColetasPendentesCatador", qs.stringify(dadosUsuario), config)
     .then((result) => {
@@ -109,24 +108,24 @@ const PerfilColetador = (props) => {
         <View style={styles.areaListaPendentes}>
           <Text style={styles.tituloPendente}> Pendentes </Text>
           {isLoading ? (
-            <ActivityIndicator size="large" color="#00ff00"/>
+            <ActivityIndicator size="large" color="#00ff00" />
           ) : (
-            (pendentes.length <= 0) ? (
-              <Text style={{marginHorizontal: "2%"}} >Você naõ possui coletas pendentes</Text>
-            ) : (
-              <FlatList
-                data={pendentes}
-                showsVerticalScrollIndicator={false}
-                keyExtractor={(item, index) => item.Id.toString()}
-                renderItem={({ item }) => (
-                  <Coleta
-                    coleta={item}
-                    dadosUsuario={dadosUsuario}
+              (pendentes.length <= 0) ? (
+                <Text style={{ marginHorizontal: "2%" }} >Você naõ possui coletas pendentes</Text>
+              ) : (
+                  <FlatList
+                    data={pendentes}
+                    showsVerticalScrollIndicator={false}
+                    keyExtractor={(item, index) => item.Id.toString()}
+                    renderItem={({ item }) => (
+                      <Coleta
+                        coleta={item}
+                        dadosUsuario={dadosUsuario}
+                      />
+                    )}
                   />
-                )}
-              />
-            )
-          )}
+                )
+            )}
         </View>
       </View>
     );

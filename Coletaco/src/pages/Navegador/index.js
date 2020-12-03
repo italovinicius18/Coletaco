@@ -9,8 +9,7 @@ import ListaColetas from "../ListaColetas";
 
 const Tab = createMaterialBottomTabNavigator();
 
-const Navegador = ({ route, navigation }) => {
-  const usuario = route.params.usuario;
+const Navegador = ({ route }) => {
   const dadosUsuario = route.params.dadosUsuario
 
   return (
@@ -22,7 +21,7 @@ const Navegador = ({ route, navigation }) => {
     >
       <Tab.Screen
         name="Home"
-        children={() => <Home usuario={usuario} dadosUsuario={dadosUsuario}/>}
+        children={() => <Home dadosUsuario={dadosUsuario} />}
         options={{
           tabBarLabel: "Mapa",
           tabBarColor: "#fff",
@@ -49,7 +48,7 @@ const Navegador = ({ route, navigation }) => {
       {dadosUsuario.TipoPerfil === 0 ? (
         <Tab.Screen
           name="PerfilColetador"
-          children={() => <PerfilColetador dadosUsuario={dadosUsuario}/>}
+          children={() => <PerfilColetador dadosUsuario={dadosUsuario} />}
           options={{
             tabBarLabel: "Perfil",
             tabBarColor: "#EFEFEF",
@@ -59,18 +58,18 @@ const Navegador = ({ route, navigation }) => {
           }}
         />
       ) : (
-        <Tab.Screen
-          name="PerfilColaborador"
-          children={() => <PerfilColaborador dadosUsuario={dadosUsuario}/>}
-          options={{
-            tabBarLabel: "Perfil",
-            tabBarColor: "#EFEFEF",
-            tabBarIcon: ({ color }) => (
-              <Icon name="md-person" color={color} size={26} />
-            ),
-          }}
-        />
-      )}
+          <Tab.Screen
+            name="PerfilColaborador"
+            children={() => <PerfilColaborador dadosUsuario={dadosUsuario} />}
+            options={{
+              tabBarLabel: "Perfil",
+              tabBarColor: "#EFEFEF",
+              tabBarIcon: ({ color }) => (
+                <Icon name="md-person" color={color} size={26} />
+              ),
+            }}
+          />
+        )}
     </Tab.Navigator>
   );
 };

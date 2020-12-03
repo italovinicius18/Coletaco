@@ -12,7 +12,6 @@ import { styles, stylesBucaLocal } from "./styles";
 
 import { AppLoading } from "expo";
 import Svg, { Path } from "react-native-svg";
-import * as Location from "expo-location"; // Pacote utilizado para acessar alocalização atual do usuário
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"; // Pacote utilizado pra facilitar a busca de localizações
 import {
   useFonts,
@@ -207,47 +206,47 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
           )} */}
 
           {isLoading ? (
-            <ActivityIndicator style={{marginBottom: '5%'}} size="large" color="#69D669" />
+            <ActivityIndicator style={{ marginBottom: '5%' }} size="large" color="#69D669" />
           ) : (
-            <TouchableOpacity
-              style={styles.botaoConfirmar}
-              disabled={isLoading ? true : false}
-              onPress={() => {
-                if (dados["coletaNome"] !== "" && dados["local"] !== "") {
-                  // Verifico se nenhum campo está vazio, se estiver eu alerto o usuário,
+              <TouchableOpacity
+                style={styles.botaoConfirmar}
+                disabled={isLoading ? true : false}
+                onPress={() => {
+                  if (dados["coletaNome"] !== "" && dados["local"] !== "") {
+                    // Verifico se nenhum campo está vazio, se estiver eu alerto o usuário,
 
-                  setLoading(true);
+                    setLoading(true);
 
-                  axios
-                    .post(url + "adicionaColeta", qs.stringify(dados), config)
-                    .then((result) => {
-                      let response = result;
-                      if (response.data === "Adicionado") {
-                        Alert.alert("Produto adicionado com sucesso !");
-                        navigation.navigate("Navegador", {
-                          dadosUsuario: dadosUsuario,
-                        });
-                      } else {
+                    axios
+                      .post(url + "adicionaColeta", qs.stringify(dados), config)
+                      .then((result) => {
+                        let response = result;
+                        if (response.data === "Adicionado") {
+                          Alert.alert("Produto adicionado com sucesso !");
+                          navigation.navigate("Navegador", {
+                            dadosUsuario: dadosUsuario,
+                          });
+                        } else {
+                          Alert.alert(
+                            "Não conseguimos adicionar a coleta, tente novamente"
+                          );
+                          return;
+                        }
+                      })
+                      .catch((err) => {
                         Alert.alert(
-                          "Não conseguimos adicionar a coleta, tente novamente"
+                          "Não conseguimos acessar o servidor, verifique sua conexão e tente novamente"
                         );
-                        return;
-                      }
-                    })
-                    .catch((err) => {
-                      Alert.alert(
-                        "Não conseguimos acessar o servidor, verifique sua conexão e tente novamente"
-                      );
-                    })
-                    .finally(() => setLoading(false));
-                } else {
-                  Alert.alert("Por favor, revise os dados");
-                }
-              }}
-            >
-              <Text style={styles.textoBotaoConfirmar}>Cadastrar material</Text>
-            </TouchableOpacity>
-          )}
+                      })
+                      .finally(() => setLoading(false));
+                  } else {
+                    Alert.alert("Por favor, revise os dados");
+                  }
+                }}
+              >
+                <Text style={styles.textoBotaoConfirmar}>Cadastrar material</Text>
+              </TouchableOpacity>
+            )}
         </View>
       </View>
     );

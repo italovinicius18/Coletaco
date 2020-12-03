@@ -11,7 +11,6 @@ import {
   Montserrat_500Medium,
   Montserrat_400Regular,
 } from "@expo-google-fonts/montserrat";
-// import { HomeColetas } from "../data_example";
 
 const axios = require("axios");
 const qs = require("qs");
@@ -19,11 +18,9 @@ import { url, config } from "../../api/api";
 
 const Home = (props) => {
   const navigation = useNavigation();
-  const [localizacao, setLocalizacao] = useState("");
   const [homeColetas, setHomeColetas] = useState([]);
   const [temColetas, setTemColetas] = useState();
   const [isLoading, setLoading] = useState(true);
-  const usuario = props.usuario;
   const dadosUsuario = props.dadosUsuario;
 
   let [fontsLoaded] = useFonts({
@@ -93,8 +90,8 @@ const Home = (props) => {
             ))}
           </MapView>
         ) : (
-          <Text>Não existem coletas cadastradas</Text>
-        )}
+              <Text>Não existem coletas cadastradas</Text>
+            )}
       </View>
     );
 };

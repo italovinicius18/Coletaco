@@ -6,6 +6,7 @@ import {
   Keyboard,
   TextInput,
   Alert,
+  ActivityIndicator
 } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { styles } from "./styles";
@@ -16,10 +17,10 @@ import {
   Montserrat_500Medium,
 } from "@expo-google-fonts/montserrat";
 import { AppLoading } from "expo";
-const axios = require('axios')
-const qs = require('qs')
+const axios = require("axios");
+const qs = require("qs");
 
-import {url,config} from '../../api/api'
+import { url, config } from "../../api/api";
 
 const Cadastro = ({ navigation }) => {
   //EventListener do teclado
@@ -40,6 +41,8 @@ const Cadastro = ({ navigation }) => {
   var [senha, onChangeSenha] = useState(""); //Armazena o valor do input Senha
   var [tecladoAtivo, onChangeKeyboard] = useState(false); //Armazena o valor da variável tecladoAtivo
   var [tipoPerfil, setValue] = useState("catador");
+  const [isLoading, setLoading] = useState(false);
+
   //Fontes
   let [fontsLoaded] = useFonts({
     Montserrat_800ExtraBold,
@@ -106,38 +109,55 @@ const Cadastro = ({ navigation }) => {
           </RadioButton.Group>
 
           {/* Botão de Cadastro */}
-          <TouchableOpacity
-            style={styles.botaoCadastro}
-            onPress={() => {
-              if (nomeCompleto === "" || email === ""  || senha === ''){
-                Alert.alert("Por favor, preencha os dados corretamente")
-                return
-              }
-              let dados = {
-                nome: nomeCompleto,
-                email: email,
-                senha: senha,
-                tipoPerfil: tipoPerfil,
-              }            
-              
-              axios.post(url+'cadastro', qs.stringify(dados), config)
+
+          {isLoading ? (
+            <ActivityIndicator
+              style={{ marginBottom: "5%" }}
+              size="large"
+              color="#69D669"
+            />
+          ) : (
+            <TouchableOpacity
+              style={styles.botaoCadastro}
+              onPress={() => {
+                if (nomeCompleto === "" || email === "" || senha === "") {
+                  Alert.alert("Por favor, preencha os dados corretamente");
+                  return;
+                }
+
+                setLoading(true);
+
+                let dados = {
+                  nome: nomeCompleto,
+                  email: email,
+                  senha: senha,
+                  tipoPerfil: tipoPerfil,
+                };
+
+                axios
+                  .post(url + "cadastro", qs.stringify(dados), config)
                   .then((result) => {
-                      let response = result
-                      if (response.data === "Adicionado"){
-                        navigation.navigate("Login");
-                      }else{
-                        Alert.alert("Não conseguimos te cadastar, tente novamente")
-                        return
-                      }
+                    let response = result;
+                    if (response.data === "Adicionado") {
+                      navigation.navigate("Login");
+                    } else {
+                      Alert.alert(
+                        "Não conseguimos te cadastar, tente novamente"
+                      );
+                      return;
+                    }
                   })
                   .catch((err) => {
-                      Alert.alert("Não conseguimos acessar o servidor, verifique sua conexão e tente novamente")
+                    Alert.alert(
+                      "Não conseguimos acessar o servidor, verifique sua conexão e tente novamente"
+                    );
                   })
-              
-            }}
-          >
-            <Text style={styles.botaoCadastroText}>Cadastre-se</Text>
-          </TouchableOpacity>
+                  .finally(() => setLoading(false));
+              }}
+            >
+              <Text style={styles.botaoCadastroText}>Cadastre-se</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         {/* Link para tela de cadastro */}

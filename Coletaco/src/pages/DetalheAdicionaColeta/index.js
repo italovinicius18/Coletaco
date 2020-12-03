@@ -207,7 +207,7 @@ const DetalheAdicionaColetas = ({ route, navigation }) => {
           )} */}
 
           {isLoading ? (
-            <ActivityIndicator style={{marginBottom: '5%'}} size="large" color="#00ff00" />
+            <ActivityIndicator style={{marginBottom: '5%'}} size="large" color="#69D669" />
           ) : (
             <TouchableOpacity
               style={styles.botaoConfirmar}

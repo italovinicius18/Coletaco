@@ -93,7 +93,7 @@ const TelaDoProduto = ({ route, navigation }) => {
 
         {isLoading ? (
           <View style={styles.areaBotao}>
-            <ActivityIndicator size="large" color="#000" />
+            <ActivityIndicator size="large" color="#69D669" />
           </View>
         ) : ((dadosUsuario.TipoPerfil === 1 && coleta.IdSituacao === 2) ||
           (dadosUsuario.TipoPerfil === 0 && coleta.IdSituacao === 1)) && !confirmaColeta && !mostrarMapa ? (

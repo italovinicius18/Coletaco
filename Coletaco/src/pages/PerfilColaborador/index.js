@@ -121,7 +121,7 @@ const PerfilColaborador = (props) => {
             <ActivityIndicator
               style={{ top: "10%", alignSelf: "center" }}
               size="large"
-              color="#00ff00"
+              color="#69D669"
             />
           ) : (
             <PieChart

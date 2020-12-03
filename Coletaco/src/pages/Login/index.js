@@ -6,6 +6,7 @@ import {
   Alert,
   Keyboard,
   TextInput,
+  ActivityIndicator
 } from "react-native";
 import { styles } from "./styles";
 import Svg, { Path, Circle } from "react-native-svg";
@@ -78,6 +79,7 @@ const Login = ({ navigation }) => {
   var [email, onChangeEmail] = useState(""); //Armazena o valor do input Email
   var [senha, onChangeSenha] = useState(""); //Armazena o valor do input Senha
   let [tecladoAtivo, onChangeKeyboard] = useState(false); //Armazena o valor da variável tecladoAtivo
+  const [isLoading, setLoading] = useState(false);
 
   //Fontes
   let [fontsLoaded] = useFonts({
@@ -117,38 +119,55 @@ const Login = ({ navigation }) => {
           />
 
           {/* Botão de Login */}
-          <TouchableOpacity
-            style={styles.botaoLogin}
-            onPress={() => {
-              if (email === "" || senha === "") {
-                Alert.alert("Por favor, preencha os dados corretamente");
-                return;
-              }
-
-              let dados = {
-                email: email,
-                senha: senha,
-              };
-
-              axios
-                .post(url + "login", qs.stringify(dados), config)
-                .then((result) => {
-                  let res = result.data;
-                  if (res === "") {
-                    Alert.alert("Usuário ou senha incorreta, tente novamente");
-                    return;
-                  } else {
-                    navigation.navigate("Navegador", { usuario: res.TipoPerfil === 0 ? 'catador' : 'colaborador' , dadosUsuario: res});
-                  }
-                })
-                .catch((err) => {
-                  Alert.alert("Erro de conexão, tente novamente");
+          {isLoading ? (
+            <ActivityIndicator
+              style={{ marginBottom: "5%" }}
+              size="large"
+              color="#69D669"
+            />
+          ) : (
+            <TouchableOpacity
+              style={styles.botaoLogin}
+              onPress={() => {
+                if (email === "" || senha === "") {
+                  Alert.alert("Por favor, preencha os dados corretamente");
                   return;
-                });
-            }}
-          >
-            <Text style={styles.botaoLoginText}>Login</Text>
-          </TouchableOpacity>
+                }
+
+                let dados = {
+                  email: email,
+                  senha: senha,
+                };
+
+                setLoading(true)
+
+                axios
+                  .post(url + "login", qs.stringify(dados), config)
+                  .then((result) => {
+                    let res = result.data;
+                    if (res === "") {
+                      Alert.alert(
+                        "Usuário ou senha incorreta, tente novamente"
+                      );
+                      return;
+                    } else {
+                      navigation.navigate("Navegador", {
+                        usuario:
+                          res.TipoPerfil === 0 ? "catador" : "colaborador",
+                        dadosUsuario: res,
+                      });
+                    }
+                  })
+                  .catch((err) => {
+                    Alert.alert("Erro de conexão, tente novamente");
+                    return;
+                  })
+                  .finally(() => setLoading(false));
+              }}
+            >
+              <Text style={styles.botaoLoginText}>Login</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         {/* Link para tela de cadastro */}

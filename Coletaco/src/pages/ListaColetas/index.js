@@ -133,7 +133,7 @@ const ListaColetas = (props) => {
 
         <View style={styles.areaListaColetas}>
           { isLoading ? (
-            <ActivityIndicator size="large" color="#00ff00"/>
+            <ActivityIndicator size="large" color="#69D669"/>
           ) : (
             temColetas ? (
               <FlatList

@@ -49,7 +49,7 @@ const Navegador = ({ route, navigation }) => {
       {dadosUsuario.TipoPerfil === 0 ? (
         <Tab.Screen
           name="PerfilColetador"
-          children={() => <PerfilColetador />}
+          children={() => <PerfilColetador dadosUsuario={dadosUsuario}/>}
           options={{
             tabBarLabel: "Perfil",
             tabBarColor: "#EFEFEF",

@@ -90,15 +90,10 @@ expo start
 </tbody>
 </table>
 
-<table>
-<thead>
-  <tr>
-    <th><img src="images/Catador.gif" alt="Catador"></th>
-    <td><img src="images/Colaborador.gif" alt="Colaborador"></td>
-  </tr>
-</thead>
-</table>
-</center>
+<div align="center">
+  <img src="images/Catador.gif" alt="Catador">
+  <img src="images/Colaborador.gif" alt="Colaborador">
+</div>
 
 <!-- LICENSE -->
 ## Licença

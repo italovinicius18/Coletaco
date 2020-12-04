@@ -91,8 +91,8 @@ expo start
 </table>
 
 <div align="center">
-  <img src="images/Catador.gif" alt="Catador">
-  <img src="images/Colaborador.gif" alt="Colaborador">
+  <img src="images/Catador.gif" alt="Catador" height="500">
+  <img src="images/Colaborador.gif" alt="Colaborador" height="500">
 </div>
 
 <!-- LICENSE -->

@@ -14,9 +14,8 @@
 O projeto tem o intuito de ajudar os catadores de materiais recicláveis por meio da ajuda de colaboradores, os quais vão sinalizar localizações específicas que o catador possa pegar uma boa quantidade de coletas sem que precise ficar vagando em possíveis lugares que não tenham estes materiais
 
 
-### Feito com
+### Tecnologias principais
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 * [React Native](https://reactnative.dev)
 * [Expo](https://expo.io)
 * [ExpressJS](https://expressjs.com/pt-br/)

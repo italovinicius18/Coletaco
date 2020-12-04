@@ -65,7 +65,7 @@ expo start
 <!-- USAGE EXAMPLES -->
 ## Uso do aplicativo
 
-<div style=" margin:0 auto ">
+<center>
 <table>
 <thead>
   <tr>
@@ -98,7 +98,7 @@ expo start
   </tr>
 </thead>
 </table>
-</div>
+</center>
 
 <!-- LICENSE -->
 ## Licença
